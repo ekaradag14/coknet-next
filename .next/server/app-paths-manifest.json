@@ -1,0 +1,8 @@
+{
+  "/gizlilik-politikasi/page": "app/gizlilik-politikasi/page.js",
+  "/kullanim-sartlari/page": "app/kullanim-sartlari/page.js",
+  "/page": "app/page.js",
+  "/ozellikler/page": "app/ozellikler/page.js",
+  "/faydalari/page": "app/faydalari/page.js",
+  "/hakkimizda/page": "app/hakkimizda/page.js"
+}
