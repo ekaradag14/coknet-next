@@ -32,7 +32,8 @@ declare global {
 const ContactPage = () => {
   "use client";
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     subject: "",
     message: "",
@@ -317,13 +318,36 @@ const ContactPage = () => {
                         mb: 1,
                       }}
                     >
-                      İsim Soyisim
+                      Ad
                     </InputLabel>
                     <TextField
                       fullWidth
-                      placeholder="Adınızı ve soyadınızı girin"
-                      value={formData.name}
-                      onChange={handleInputChange("name")}
+                      placeholder="Adınızı girin"
+                      value={formData.firstName}
+                      onChange={handleInputChange("firstName")}
+                      sx={{
+                        "& .MuiOutlinedInput-root": {
+                          borderRadius: "8px",
+                        },
+                      }}
+                    />
+                  </Box>
+                  <Box>
+                    <InputLabel
+                      sx={{
+                        color: "#374151",
+                        fontWeight: 600,
+                        fontSize: "14px",
+                        mb: 1,
+                      }}
+                    >
+                      Soyad
+                    </InputLabel>
+                    <TextField
+                      fullWidth
+                      placeholder="Soyadınızı girin"
+                      value={formData.lastName}
+                      onChange={handleInputChange("lastName")}
                       sx={{
                         "& .MuiOutlinedInput-root": {
                           borderRadius: "8px",

@@ -20,31 +20,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/faydalari/page.js"
     ],
-    "/page": [
+    "/iletisim/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/page.css",
-      "static/chunks/app/page.js"
-    ],
-    "/tanisma-formu/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/tanisma-formu/page.js"
-    ],
-    "/hakkimizda/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/hakkimizda/page.js"
-    ],
-    "/hesaplama/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/hesaplama/page.js"
-    ],
-    "/hesaplama/tyt/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/hesaplama/tyt/page.js"
+      "static/chunks/app/iletisim/page.js"
     ],
     "/ozellikler/page": [
       "static/chunks/webpack.js",
