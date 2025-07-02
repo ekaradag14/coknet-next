@@ -3,10 +3,17 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function CookieConsent() {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const consent = localStorage.getItem("cookieConsent");
+    if (!consent) {
+      setIsVisible(true);
+    }
+  }, []);
 
   const handleAccept = () => {
     setIsVisible(false);

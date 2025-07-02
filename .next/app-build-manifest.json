@@ -15,10 +15,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/loading.js"
     ],
-    "/iletisim/page": [
+    "/faydalari/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/iletisim/page.js"
+      "static/chunks/app/faydalari/page.js"
     ],
     "/page": [
       "static/chunks/webpack.js",
@@ -31,35 +31,25 @@
       "static/chunks/main-app.js",
       "static/chunks/app/tanisma-formu/page.js"
     ],
-    "/gizlilik-politikasi/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/gizlilik-politikasi/page.js"
-    ],
-    "/kullanim-sartlari/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/kullanim-sartlari/page.js"
-    ],
-    "/faydalari/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/faydalari/page.js"
-    ],
     "/hakkimizda/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/hakkimizda/page.js"
     ],
-    "/ozellikler/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/ozellikler/page.js"
-    ],
     "/hesaplama/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/hesaplama/page.js"
+    ],
+    "/hesaplama/tyt/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/hesaplama/tyt/page.js"
+    ],
+    "/ozellikler/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/ozellikler/page.js"
     ]
   }
 }
