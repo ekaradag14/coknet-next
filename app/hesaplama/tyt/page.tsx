@@ -11,7 +11,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import SubjectCard, { SubjectData } from "../../components/SubjectCard";
+import SubjectCard, { SubjectData } from "../../components/cards/SubjectCard";
 
 interface TYTResults {
   nets: { [key: string]: number };

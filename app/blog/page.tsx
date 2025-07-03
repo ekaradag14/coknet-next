@@ -3,8 +3,8 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import BlogPostCard from "../components/BlogPostCard";
-import AuthorProfileCard from "../components/AuthorProfileCard";
+import BlogPostCard from "../components/cards/BlogPostCard";
+import AuthorProfileCard from "../components/cards/AuthorProfileCard";
 const blogHomeImage = "/blog-home.png";
 
 export default function BlogPage() {

@@ -1,5 +1,5 @@
 "use client";
-import LegalPageTemplate from "../components/LegalPageTemplate";
+import LegalPageTemplate from "../components/layout/LegalPageTemplate";
 
 const KVKKDisclosurePage = () => {
   return (

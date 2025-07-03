@@ -14,7 +14,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import FamilyRestroomIcon from "@mui/icons-material/FamilyRestroom";
 import PublicIcon from "@mui/icons-material/Public";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import TimelineHowItStarted from "@/components/TimelineHowItStarted";
+import TimelineHowItStarted from "@/components/sections/TimelineHowItStarted";
 
 interface ValueCardProps {
   title: string;

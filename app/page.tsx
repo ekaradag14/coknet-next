@@ -1,8 +1,8 @@
 "use client";
-import HeroSection from "./components/HeroSection";
-import AboutCokNetSection from "./components/AboutCokNetSection";
-import IllustrationSection from "./components/IllustrationSection";
-import FeatureHighlightsSection from "./components/FeatureHighlightsSection";
+import HeroSection from "./components/sections/HeroSection";
+import AboutCokNetSection from "./components/sections/AboutCokNetSection";
+import IllustrationSection from "./components/sections/IllustrationSection";
+import FeatureHighlightsSection from "./components/sections/FeatureHighlightsSection";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";

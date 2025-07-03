@@ -2,9 +2,9 @@
 import { ReactNode } from 'react';
 import CssBaseline from "@mui/material/CssBaseline";
 import AppTheme from "../shared-theme/AppTheme";
-import TopNavigation from "@/components/TopNavigation";
-import Footer from "@/components/Footer";
-import CookieConsent from "@/components/CookieConsent";
+import TopNavigation from "./components/layout/TopNavigation";
+import Footer from "./components/layout/Footer";
+import CookieConsent from "./components/ui/CookieConsent";
 
 interface RootLayoutProps {
   children: ReactNode;

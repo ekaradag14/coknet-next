@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import InfoIcon from "@mui/icons-material/Info";
 import { useState } from "react";
-import SubjectCard, { SubjectData } from "../../components/SubjectCard";
+import SubjectCard, { SubjectData } from "../../components/cards/SubjectCard";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Tabs from "@mui/material/Tabs";

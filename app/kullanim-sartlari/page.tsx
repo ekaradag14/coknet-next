@@ -1,4 +1,4 @@
-import LegalPageTemplate from "../components/LegalPageTemplate";
+import LegalPageTemplate from "../components/layout/LegalPageTemplate";
 
 const TermsOfServicePage = () => {
   "use client";

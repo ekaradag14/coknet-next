@@ -19,7 +19,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import TwitterIcon from "@mui/icons-material/X";
 import { useState, useEffect } from "react";
-import AccordionSection from "../components/AccordionSection";
+import AccordionSection from "../components/ui/AccordionSection";
 import IconButton from "@mui/material/IconButton";
 
 // @ts-ignore

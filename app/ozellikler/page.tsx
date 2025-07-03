@@ -6,7 +6,7 @@ import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
-import AccordionSection from "../components/AccordionSection";
+import AccordionSection from "../components/ui/AccordionSection";
 const bireyselCalismaPlaniImage = "/feature-cards/bireysel-calisma-plani.png";
 const canliMentorDestegiImage = "/feature-cards/canli-mentor-destegi.png";
 const kisiselEgitimIcerikleriImage = "/feature-cards/kisisel-egitim-icerikleri.png";
