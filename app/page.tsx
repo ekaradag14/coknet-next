@@ -20,7 +20,7 @@ const HomePage = () => {
       <IllustrationSection />
       <FeatureHighlightsSection />
       {/* Hazır Mısın? Card at the bottom */}
-      <Box sx={{ backgroundColor: "#fff", pb: 8,             px:6, }}>
+      <Box sx={{ backgroundColor: "#fff", pb: 8,  px:{xs:2,md:0}, }}>
         <Card
           sx={{
             borderRadius: "20px",
@@ -32,7 +32,7 @@ const HomePage = () => {
             position: "relative",
             overflow: "hidden",
             border: "1px none rgba(0, 0, 0, 0.12)",
-            maxWidth: { xs: '95%', md: 'lg' },
+            maxWidth: { xs: '100%', md: 'lg' },
             mx: "auto",
           }}
         >
