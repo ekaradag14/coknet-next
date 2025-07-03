@@ -112,7 +112,7 @@ export default function HeroSection() {
                 Seni sadece notlarınla değil, hayallerinle de tanıyoruz. Akıllı
                 sistemimiz, seni analiz edip tamamen sana özel bir çalışma planı
                 oluşturur. Böylece eksiklerini kapatır, özgüvenini adım adım
-                geliştirirsin. Sadece sınavlara değil, hayata da hazırlanırsın
+                geliştirirsin. Sadece sınavlara değil, hayata da hazırlanırsın.
               </Typography>
 
               {/* CTA Buttons */}

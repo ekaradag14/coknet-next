@@ -262,18 +262,18 @@ export default function Footer() {
               </Typography>
               <Stack spacing={1}>
                 {LEGAL_LINKS.map(link => (
-                  <Link
+                <Link
                     key={link.href}
                     href={link.href}
-                    sx={{
-                      color: "#9CA3AF",
-                      textDecoration: "none",
-                      fontSize: "14px",
-                      "&:hover": { color: "white" },
-                    }}
-                  >
+                  sx={{
+                    color: "#9CA3AF",
+                    textDecoration: "none",
+                    fontSize: "14px",
+                    "&:hover": { color: "white" },
+                  }}
+                >
                     {link.label}
-                  </Link>
+                </Link>
                 ))}
               </Stack>
             </Box>
@@ -293,20 +293,20 @@ export default function Footer() {
               </Typography>
               <Stack spacing={1}>
                 {QUICK_LINKS.map(link => (
-                  <Link
+                <Link
                     key={link.href}
                     href={link.href}
                     target={link.external ? "_blank" : undefined}
                     rel={link.external ? "noopener noreferrer" : undefined}
-                    sx={{
-                      color: "#9CA3AF",
-                      textDecoration: "none",
-                      fontSize: "14px",
-                      "&:hover": { color: "white" },
-                    }}
-                  >
+                  sx={{
+                    color: "#9CA3AF",
+                    textDecoration: "none",
+                    fontSize: "14px",
+                    "&:hover": { color: "white" },
+                  }}
+                >
                     {link.label}
-                  </Link>
+                </Link>
                 ))}
               </Stack>
             </Box>

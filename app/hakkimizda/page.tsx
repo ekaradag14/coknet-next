@@ -14,6 +14,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import FamilyRestroomIcon from "@mui/icons-material/FamilyRestroom";
 import PublicIcon from "@mui/icons-material/Public";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import TimelineHowItStarted from "@/components/TimelineHowItStarted";
 
 interface ValueCardProps {
   title: string;
@@ -207,7 +208,7 @@ const AboutPage = () => {
           spacing={4}
           alignItems="center"
           sx={{
-            textAlign: "center",
+
             mb: 8,
             maxWidth: "900px",
             mx: "auto",
@@ -221,50 +222,71 @@ const AboutPage = () => {
               color: "#111827",
               lineHeight: 1.2,
               fontFamily: "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+              marginRight: "auto",
+              width: "100%",
             }}
           >
             Hakkımızda
           </Typography>
-
           {/* Company Introduction */}
-          <Box sx={{ maxWidth: "800px" }}>
+          <Box sx={{ maxWidth: "800px", textAlign: "left" }}>
             <Typography
               sx={{
                 fontSize: { xs: "16px", md: "18px" },
                 fontWeight: 400,
                 color: "#374151",
                 lineHeight: "28px",
-                textAlign: "center",
                 fontFamily:
                   "Inter, -apple-system, Roboto, Helvetica, sans-serif",
                 mb: 3,
               }}
             >
-              ÇokNet, günümüzün öğrenme ihtiyaçlarına yanıt vermek üzere
-              geliştirilmiş, Edit – Eğitimde Dijital İçerik Teknolojileri
-              A.Ş.'nin bir markasıdır.
+              Günümüzün değişen öğrenme ihtiyaçlarına ve sınav hazırlık süreçlerine yanıt vermek üzere geliştirilmiş, öğrencinin ihtiyacını gerçekten anlayan bir öğrenme platformuyuz. Eğitim teknolojileri, yapay zeka, sınav analitiği ve dijital içerik üretimi alanlarında deneyimli uzman ekiplerimiz var. Sahayı biliyor, veriyi okuyor ve buna göre çözüm üretiyoruz.
+              Platform, gelişmiş içerik altyapısıyla adaptif öğrenme modellerini merkeze alarak her öğrencinin ihtiyaçlarına özel, esnek ve verimli bir öğrenme deneyimi sunar.
+              Kullanıcılarına yalnızca içerik sunmakla kalmayan ÇokNet, veri temelli geri bildirimlerle öğrenme sürecini şekillendirir, güçlü akademik takip mekanizmalarıyla öğrenciyi destekler.
+              Köklerimiz der, vizyonu ileri olan bu sistem; teknoloji, pedagojik uzmanlık ve sahadaki deneyimin güçlü bir birleşimidir.
             </Typography>
 
+
+          </Box>
+          <Typography
+            variant="h1"
+            sx={{
+              fontSize: { xs: "32px", md: "48px" },
+              fontWeight: 700,
+              color: "#111827",
+              lineHeight: 1.2,
+              textAlign: "right",
+              fontFamily: "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+              marginLeft: "auto",
+              width: "100%",
+            }}
+          >
+            Hikayemiz
+          </Typography>
+          <Box sx={{ maxWidth: "800px", textAlign: "left" }}>
             <Typography
               sx={{
                 fontSize: { xs: "16px", md: "18px" },
                 fontWeight: 400,
+                textAlign: "right",
                 color: "#374151",
                 lineHeight: "28px",
-                textAlign: "center",
                 fontFamily:
                   "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                mb: 3,
               }}
             >
-              Edit, yapay zeka (AI) ve ileri eğitim yazılımları alanında
-              uzmanlaşmış, eğitim teknolojileri geliştiren bir Ar-Ge şirketidir.
-              Kurumlara ve bireylere özel dijital öğrenme çözümleri sunan Edit,
-              Türkiye'nin dijital eğitim dönüşümüne katkı sağlamayı
-              amaçlamıştır.
+              Türkiye'de her yıl milyonlarca öğrenci sınavlara hazırlanıyor. Hepsinin yolu, aynı konularla dolu kalabalık kaynaklardan, ezbere dayalı tekrarlarla ve birbirini kopyalayan sistemlerle kesişiyor.
+              Biz bu yolu değiştirmek maksadıyla bir araya geldik. Farklı alanlarda uzman, sahayı çok iyi tanıyan, binlerce öğrenciyle yol yürümüş ekiplerle birlikte yola çıktık.
+              Hedefimiz Netti: Her öğrencinin ihtiyacına göre şekillenen, güçlü bir akademik sistem kurmak. Ezber yerine anlayışın, kalabalık yerine kişiselleştirmenin, tesadüf yerine  veriye dayalı öğrenmenin olduğu bir sistem oluşturmak.
+              İşte bu fikirle ÇokNet doğdu
+              Adaptif öğrenme modelleriyle öğrenciyi tanıyan, içerik altyapısıyla rehberlik eden, akademik takiple destekleyen bir platform ÇokNet. Bugünün ihtiyaçlarını bilen, yarının eğitimini bugünden inşa etmeyi hedefleyen bir sistem.
+              Çünkü şuna inanıyoruz: Doğru yapı, doğru içerik ve doğru destek bir araya geldiğinde, başarı sadece bir hedef değil, sürdürülebilir bir yolculuk olur.
             </Typography>
           </Box>
         </Stack>
-
+        <TimelineHowItStarted />
         {/* Values Section */}
         <Box sx={{ mb: 8 }}>
           <Stack

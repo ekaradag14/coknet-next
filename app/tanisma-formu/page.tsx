@@ -40,6 +40,7 @@ const TanismaFormuPage = () => {
 
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const helpOptions = [
     {
@@ -123,9 +124,7 @@ const TanismaFormuPage = () => {
           if (validateForm()) {
             // ... your existing submit logic
             console.log("Form submitted:", formData);
-            alert(
-              "Formunuz başarıyla gönderildi! En kısa sürede sizinle iletişime geçeceğiz.",
-            );
+            setIsSubmitted(true);
           }
         });
       });
@@ -197,10 +196,9 @@ const TanismaFormuPage = () => {
         }}
       />
 
-      <Container maxWidth="md" sx={{ position: "relative", zIndex: 1 }}>
+      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
         <Card
           sx={{
-            maxWidth: 864,
             mx: "auto",
             backgroundColor: "#FFF",
             borderRadius: "16px",
@@ -210,235 +208,416 @@ const TanismaFormuPage = () => {
           }}
         >
           <CardContent sx={{ p: { xs: 3, md: 5 } }}>
-            {/* Header */}
-            <Box sx={{ textAlign: "center", mb: 4 }}>
-              <Typography
-                variant="h1"
-                sx={{
-                  fontSize: { xs: "28px", md: "36px" },
-                  fontWeight: 700,
-                  lineHeight: "45px",
-                  color: "#111827",
-                  fontFamily:
-                    "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                  mb: 3,
-                }}
-              >
-                Öncelikli Erişim Fırsatını Kaçırmayın!
-              </Typography>
-
-              <Typography
-                variant="body1"
-                sx={{
-                  fontSize: "18px",
-                  fontWeight: 400,
-                  lineHeight: "29.25px",
-                  color: "#374151",
-                  fontFamily:
-                    "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                  maxWidth: "757px",
-                  mx: "auto",
-                  mb: 3,
-                }}
-              >
-                ÇokNet ile öğrenme yolculuğunuzu keşfetmeye hazır mısınız?
-                Öncelikli erişim fırsatından yararlanarak, kişiye özel eğitim
-                çözümlerimize ilk adımı atabilirsiniz! İster öğrenci, ister bir
-                ebeveyn ya da eğitim kurumu temsilcisi olun, her adımda
-                yanınızdayız.
-              </Typography>
-
-              <Alert
-                severity="warning"
-                sx={{
-                  backgroundColor: "#FEF3C7",
-                  border: "1px solid #F59E0B",
-                  borderRadius: "8px",
-                  "& .MuiAlert-icon": {
-                    display: "none",
-                  },
-                  "& .MuiAlert-message": {
-                    width: "100%",
-                    textAlign: "center",
-                  },
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontSize: "16px",
-                    fontWeight: 600,
-                    color: "#92400E",
-                    fontFamily:
-                      "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                  }}
-                >
-                  Lütfen formu doldurun ve öncelikli erişim fırsatınızı
-                  yakalayın!
-                </Typography>
-              </Alert>
-            </Box>
-
-            {/* Form */}
-            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 4 }}>
-              {/* First Name */}
-              <Box sx={{ mb: 3 }}>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    fontSize: "14px",
-                    fontWeight: 600,
-                    color: "#111827",
-                    fontFamily:
-                      "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                    mb: 1,
-                  }}
-                >
-                  Adınız *
-                </Typography>
-                <TextField
-                  fullWidth
-                  placeholder="Adınızı buraya yazın"
-                  value={formData.firstName}
-                  onChange={handleChange("firstName")}
-                  error={!!errors.firstName}
-                  helperText={errors.firstName}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "8px",
-                      height: "50px",
-                      fontFamily:
-                        "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                      "& fieldset": {
-                        borderColor: "#D1D5DB",
-                      },
-                      "&:hover fieldset": {
-                        borderColor: "#FF9500",
-                      },
-                      "&.Mui-focused fieldset": {
-                        borderColor: "#FF9500",
-                      },
-                    },
-                    "& .MuiInputBase-input": {
-                      fontSize: "16px",
-                      fontFamily:
-                        "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                    },
-                  }}
-                />
-              </Box>
-
-              {/* Last Name */}
-              <Box sx={{ mb: 3 }}>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    fontSize: "14px",
-                    fontWeight: 600,
-                    color: "#111827",
-                    fontFamily:
-                      "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                    mb: 1,
-                  }}
-                >
-                  Soyadınız *
-                </Typography>
-                <TextField
-                  fullWidth
-                  placeholder="Soyadınızı buraya yazın"
-                  value={formData.lastName}
-                  onChange={handleChange("lastName")}
-                  error={!!errors.lastName}
-                  helperText={errors.lastName}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "8px",
-                      height: "50px",
-                      fontFamily:
-                        "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                      "& fieldset": {
-                        borderColor: "#D1D5DB",
-                      },
-                      "&:hover fieldset": {
-                        borderColor: "#FF9500",
-                      },
-                      "&.Mui-focused fieldset": {
-                        borderColor: "#FF9500",
-                      },
-                    },
-                    "& .MuiInputBase-input": {
-                      fontSize: "16px",
-                      fontFamily:
-                        "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                    },
-                  }}
-                />
-              </Box>
-
-              {/* Email */}
-              <Box sx={{ mb: 3 }}>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    fontSize: "14px",
-                    fontWeight: 600,
-                    color: "#111827",
-                    fontFamily:
-                      "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                    mb: 1,
-                  }}
-                >
-                  E-posta Adresiniz *
-                </Typography>
-                <TextField
-                  fullWidth
-                  type="email"
-                  placeholder="Email adresinizi yazın"
-                  value={formData.email}
-                  onChange={handleChange("email")}
-                  error={!!errors.email}
-                  helperText={errors.email}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "8px",
-                      height: "50px",
-                      fontFamily:
-                        "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                      "& fieldset": {
-                        borderColor: "#D1D5DB",
-                      },
-                      "&:hover fieldset": {
-                        borderColor: "#FF9500",
-                      },
-                      "&.Mui-focused fieldset": {
-                        borderColor: "#FF9500",
-                      },
-                    },
-                    "& .MuiInputBase-input": {
-                      fontSize: "16px",
-                      fontFamily:
-                        "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                    },
-                  }}
-                />
-              </Box>
-
-              {/* Phone (Optional) */}
-              <Box sx={{ mb: 3 }}>
-                <Box
-                  sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}
-                >
+            {!isSubmitted ? (
+              <>
+                {/* Header */}
+                <Box sx={{ textAlign: "center", mb: 4 }}>
                   <Typography
-                    variant="body2"
+                    variant="h1"
                     sx={{
-                      fontSize: "14px",
-                      fontWeight: 600,
+                      fontSize: { xs: "28px", md: "36px" },
+                      fontWeight: 700,
+                      lineHeight: "45px",
+                     
                       color: "#111827",
                       fontFamily:
                         "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                      mb: 3,
                     }}
                   >
-                    Telefon Numaranız
+                    Öncelikli Erişim Fırsatını Kaçırmayın!
                   </Typography>
+
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      fontSize: "18px",
+                      fontWeight: 400,
+                      lineHeight: "29.25px",
+                      color: "#374151",
+                      fontFamily:
+                        "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                    
+                      mx: "auto",
+                      mb: 3,
+                    }}
+                  >
+                    Kişiye özel eğitim çözümlerimize hem öncelikli hem de indirimli olarak kayıt olmak için formu doldurun.
+                    <br/>
+                    İster öğrenci, ister bir ebeveyn ya da eğitim kurumu temsilcisi olun, her adımda yanınızdayız.
+
+                  </Typography>
+
+                  <Alert
+                    severity="warning"
+                    sx={{
+                      backgroundColor: "#FEF3C7",
+                      border: "1px solid #F59E0B",
+                      borderRadius: "8px",
+                      "& .MuiAlert-icon": {
+                        display: "none",
+                      },
+                      "& .MuiAlert-message": {
+                        width: "100%",
+                        textAlign: "center",
+                      },
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        fontWeight: 600,
+                        color: "#92400E",
+                        fontFamily:
+                          "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                      }}
+                    >
+                      Lütfen formu doldurun ve öncelikli erişim fırsatınızı
+                      yakalayın!
+                    </Typography>
+                  </Alert>
+                </Box>
+
+                {/* Form */}
+                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 4 }}>
+                  {/* First Name */}
+                  <Box sx={{ mb: 3 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        color: "#111827",
+                        fontFamily:
+                          "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                        mb: 1,
+                      }}
+                    >
+                      Adınız *
+                    </Typography>
+                    <TextField
+                      fullWidth
+                      placeholder="Adınızı buraya yazın"
+                      value={formData.firstName}
+                      onChange={handleChange("firstName")}
+                      error={!!errors.firstName}
+                      helperText={errors.firstName}
+                      sx={{
+                        "& .MuiOutlinedInput-root": {
+                          borderRadius: "8px",
+                          height: "50px",
+                          fontFamily:
+                            "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                          "& fieldset": {
+                            borderColor: "#D1D5DB",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "#FF9500",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "#FF9500",
+                          },
+                        },
+                        "& .MuiInputBase-input": {
+                          fontSize: "16px",
+                          fontFamily:
+                            "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                        },
+                      }}
+                    />
+                  </Box>
+
+                  {/* Last Name */}
+                  <Box sx={{ mb: 3 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        color: "#111827",
+                        fontFamily:
+                          "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                        mb: 1,
+                      }}
+                    >
+                      Soyadınız *
+                    </Typography>
+                    <TextField
+                      fullWidth
+                      placeholder="Soyadınızı buraya yazın"
+                      value={formData.lastName}
+                      onChange={handleChange("lastName")}
+                      error={!!errors.lastName}
+                      helperText={errors.lastName}
+                      sx={{
+                        "& .MuiOutlinedInput-root": {
+                          borderRadius: "8px",
+                          height: "50px",
+                          fontFamily:
+                            "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                          "& fieldset": {
+                            borderColor: "#D1D5DB",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "#FF9500",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "#FF9500",
+                          },
+                        },
+                        "& .MuiInputBase-input": {
+                          fontSize: "16px",
+                          fontFamily:
+                            "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                        },
+                      }}
+                    />
+                  </Box>
+
+                  {/* Email */}
+                  <Box sx={{ mb: 3 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        color: "#111827",
+                        fontFamily:
+                          "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                        mb: 1,
+                      }}
+                    >
+                      E-posta Adresiniz *
+                    </Typography>
+                    <TextField
+                      fullWidth
+                      type="email"
+                      placeholder="Email adresinizi yazın"
+                      value={formData.email}
+                      onChange={handleChange("email")}
+                      error={!!errors.email}
+                      helperText={errors.email}
+                      sx={{
+                        "& .MuiOutlinedInput-root": {
+                          borderRadius: "8px",
+                          height: "50px",
+                          fontFamily:
+                            "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                          "& fieldset": {
+                            borderColor: "#D1D5DB",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "#FF9500",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "#FF9500",
+                          },
+                        },
+                        "& .MuiInputBase-input": {
+                          fontSize: "16px",
+                          fontFamily:
+                            "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                        },
+                      }}
+                    />
+                  </Box>
+
+                  {/* Phone (Optional) */}
+                  <Box sx={{ mb: 3 }}>
+                    <Box
+                      sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}
+                    >
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          fontSize: "14px",
+                          fontWeight: 600,
+                          color: "#111827",
+                          fontFamily:
+                            "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                        }}
+                      >
+                        Telefon Numaranız
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          fontSize: "14px",
+                          fontWeight: 400,
+                          color: "#6B7280",
+                          fontFamily:
+                            "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                        }}
+                      >
+                        (isteğe bağlı)
+                      </Typography>
+                    </Box>
+                    <TextField
+                      fullWidth
+                      placeholder="Telefon numaranızı yazın"
+                      value={formData.phone}
+                      onChange={handleChange("phone")}
+                      sx={{
+                        "& .MuiOutlinedInput-root": {
+                          borderRadius: "8px",
+                          height: "50px",
+                          fontFamily:
+                            "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                          "& fieldset": {
+                            borderColor: "#D1D5DB",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "#FF9500",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "#FF9500",
+                          },
+                        },
+                        "& .MuiInputBase-input": {
+                          fontSize: "16px",
+                          fontFamily:
+                            "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                        },
+                      }}
+                    />
+                  </Box>
+
+                  {/* Help Type Selection */}
+                  <Box sx={{ mb: 4 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontSize: "14px",
+                        fontWeight: 600,
+                        color: "#111827",
+                        fontFamily:
+                          "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                        mb: 2,
+                      }}
+                    >
+                      Hangi konuda yardımcı olabiliriz? *
+                    </Typography>
+
+                    <FormControl
+                      component="fieldset"
+                      fullWidth
+                      error={!!errors.helpType}
+                    >
+                      <RadioGroup
+                        value={formData.helpType}
+                        onChange={handleChange("helpType")}
+                        sx={{ gap: 2 }}
+                      >
+                        {helpOptions.map((option) => (
+                          <Box
+                            key={option.value}
+                            sx={{
+                              border: "1px solid #D1D5DB",
+                              borderRadius: "8px",
+                              p: 2,
+                              "&:has(input:checked)": {
+                                borderColor: "#FF9500",
+                                backgroundColor: "#FFF7ED",
+                              },
+                              "&:hover": {
+                                borderColor: "#FF9500",
+                              },
+                            }}
+                          >
+                            <FormControlLabel
+                              value={option.value}
+                              control={
+                                <Radio
+                                  sx={{
+                                    color: "#D1D5DB",
+                                    "&.Mui-checked": {
+                                      color: "#FF9500",
+                                    },
+                                  }}
+                                />
+                              }
+                              label={
+                                <Box>
+                                  <Typography
+                                    sx={{
+                                      fontSize: "16px",
+                                      fontWeight: 600,
+                                      color: "#111827",
+                                      fontFamily:
+                                        "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                                      mb: 0.5,
+                                    }}
+                                  >
+                                    {option.title}
+                                  </Typography>
+                                  <Typography
+                                    sx={{
+                                      fontSize: "14px",
+                                      fontWeight: 400,
+                                      color: "#6B7280",
+                                      fontFamily:
+                                        "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                                    }}
+                                  >
+                                    {option.description}
+                                  </Typography>
+                                </Box>
+                              }
+                              sx={{
+                                margin: 0,
+                                alignItems: "flex-start",
+                                "& .MuiFormControlLabel-label": {
+                                  marginLeft: 1,
+                                },
+                              }}
+                            />
+                          </Box>
+                        ))}
+                      </RadioGroup>
+                      {errors.helpType && (
+                        <Typography
+                          variant="caption"
+                          sx={{
+                            color: "#d32f2f",
+                            fontSize: "0.75rem",
+                            mt: 1,
+                            fontFamily:
+                              "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                          }}
+                        >
+                          {errors.helpType}
+                        </Typography>
+                      )}
+                    </FormControl>
+                  </Box>
+
+                  {/* Submit Button */}
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="outlined"
+                    sx={{
+                      backgroundColor: "#FF9500",
+                      borderRadius: "8px",
+                      height: "60px",
+                      fontSize: "18px",
+                      fontWeight: 600,
+                      textTransform: "none",
+                      color: "#FFF",
+                      border: "none",
+                      fontFamily:
+                        "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                      boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.05)",
+                      "&:hover": {
+                        backgroundColor: "#E6850E",
+                      },
+                      mb: 3,
+                    }}
+                  >
+                    Öncelikli Erişim Talebimi Gönder
+                  </Button>
+
+                  {/* Privacy Notice */}
                   <Typography
                     variant="body2"
                     sx={{
@@ -447,217 +626,73 @@ const TanismaFormuPage = () => {
                       color: "#6B7280",
                       fontFamily:
                         "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                      textAlign: "center",
                     }}
                   >
-                    (isteğe bağlı)
-                  </Typography>
-                </Box>
-                <TextField
-                  fullWidth
-                  placeholder="Telefon numaranızı yazın"
-                  value={formData.phone}
-                  onChange={handleChange("phone")}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      borderRadius: "8px",
-                      height: "50px",
-                      fontFamily:
-                        "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                      "& fieldset": {
-                        borderColor: "#D1D5DB",
-                      },
-                      "&:hover fieldset": {
-                        borderColor: "#FF9500",
-                      },
-                      "&.Mui-focused fieldset": {
-                        borderColor: "#FF9500",
-                      },
-                    },
-                    "& .MuiInputBase-input": {
-                      fontSize: "16px",
-                      fontFamily:
-                        "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                    },
-                  }}
-                />
-              </Box>
-
-              {/* Help Type Selection */}
-              <Box sx={{ mb: 4 }}>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    fontSize: "14px",
-                    fontWeight: 600,
-                    color: "#111827",
-                    fontFamily:
-                      "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                    mb: 2,
-                  }}
-                >
-                  Hangi konuda yardımcı olabiliriz? *
-                </Typography>
-
-                <FormControl
-                  component="fieldset"
-                  fullWidth
-                  error={!!errors.helpType}
-                >
-                  <RadioGroup
-                    value={formData.helpType}
-                    onChange={handleChange("helpType")}
-                    sx={{ gap: 2 }}
-                  >
-                    {helpOptions.map((option) => (
-                      <Box
-                        key={option.value}
-                        sx={{
-                          border: "1px solid #D1D5DB",
-                          borderRadius: "8px",
-                          p: 2,
-                          "&:has(input:checked)": {
-                            borderColor: "#FF9500",
-                            backgroundColor: "#FFF7ED",
-                          },
-                          "&:hover": {
-                            borderColor: "#FF9500",
-                          },
-                        }}
-                      >
-                        <FormControlLabel
-                          value={option.value}
-                          control={
-                            <Radio
-                              sx={{
-                                color: "#D1D5DB",
-                                "&.Mui-checked": {
-                                  color: "#FF9500",
-                                },
-                              }}
-                            />
-                          }
-                          label={
-                            <Box>
-                              <Typography
-                                sx={{
-                                  fontSize: "16px",
-                                  fontWeight: 600,
-                                  color: "#111827",
-                                  fontFamily:
-                                    "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                                  mb: 0.5,
-                                }}
-                              >
-                                {option.title}
-                              </Typography>
-                              <Typography
-                                sx={{
-                                  fontSize: "14px",
-                                  fontWeight: 400,
-                                  color: "#6B7280",
-                                  fontFamily:
-                                    "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                                }}
-                              >
-                                {option.description}
-                              </Typography>
-                            </Box>
-                          }
-                          sx={{
-                            margin: 0,
-                            alignItems: "flex-start",
-                            "& .MuiFormControlLabel-label": {
-                              marginLeft: 1,
-                            },
-                          }}
-                        />
-                      </Box>
-                    ))}
-                  </RadioGroup>
-                  {errors.helpType && (
-                    <Typography
-                      variant="caption"
+                    Formunuzu göndererek,{" "}
+                    <Link
+                      href="/gizlilik-politikasi"
                       sx={{
-                        color: "#d32f2f",
-                        fontSize: "0.75rem",
-                        mt: 1,
-                        fontFamily:
-                          "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                        color: "#FF9500",
+                        textDecoration: "none",
+                        "&:hover": {
+                          textDecoration: "underline",
+                        },
                       }}
                     >
-                      {errors.helpType}
-                    </Typography>
-                  )}
-                </FormControl>
+                      Gizlilik Politikamızı
+                    </Link>{" "}
+                    ve{" "}
+                    <Link
+                      href="/kullanim-sartlari"
+                      sx={{
+                        color: "#FF9500",
+                        textDecoration: "none",
+                        "&:hover": {
+                          textDecoration: "underline",
+                        },
+                      }}
+                    >
+                      Kullanım Şartlarımızı
+                    </Link>{" "}
+                    kabul etmiş olursunuz.
+                  </Typography>
+                </Box>
+              </>
+            ) : (
+              /* Success Message */
+              <Box sx={{ textAlign: "center", py: { xs: 4, md: 6 } }}>
+                <Typography
+                  variant="h1"
+                  sx={{
+                    fontSize: { xs: "28px", md: "36px" },
+                    fontWeight: 700,
+                    lineHeight: "45px",
+                    color: "#374151",
+                    fontFamily:
+                      "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                    mb: 3,
+                  }}
+                >
+                  Öncelikli erişim başvurunuzu aldık.
+                </Typography>
+
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontSize: "20px",
+                    fontWeight: 400,
+                    lineHeight: "29.25px",
+                    color: "#374151",
+                    fontFamily:
+                      "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                    mx: "auto",
+                  }}
+                >
+                  İlginize teşekkür ederiz.
+                </Typography>
               </Box>
-
-              {/* Submit Button */}
-              <Button
-                type="submit"
-                fullWidth
-                variant="outlined"
-                sx={{
-                  backgroundColor: "#FF9500",
-                  borderRadius: "8px",
-                  height: "60px",
-                  fontSize: "18px",
-                  fontWeight: 600,
-                  textTransform: "none",
-                  color: "#FFF",
-                  border: "none",
-                  fontFamily:
-                    "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                  boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.05)",
-                  "&:hover": {
-                    backgroundColor: "#E6850E",
-                  },
-                  mb: 3,
-                }}
-              >
-                Öncelikli Erişim Talebimi Gönder
-              </Button>
-
-              {/* Privacy Notice */}
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: "14px",
-                  fontWeight: 400,
-                  color: "#6B7280",
-                  fontFamily:
-                    "Inter, -apple-system, Roboto, Helvetica, sans-serif",
-                  textAlign: "center",
-                }}
-              >
-                Formunuzu göndererek,{" "}
-                <Link
-                  href="/gizlilik-politikasi"
-                  sx={{
-                    color: "#FF9500",
-                    textDecoration: "none",
-                    "&:hover": {
-                      textDecoration: "underline",
-                    },
-                  }}
-                >
-                  Gizlilik Politikamızı
-                </Link>{" "}
-                ve{" "}
-                <Link
-                  href="/kullanim-sartlari"
-                  sx={{
-                    color: "#FF9500",
-                    textDecoration: "none",
-                    "&:hover": {
-                      textDecoration: "underline",
-                    },
-                  }}
-                >
-                  Kullanım Şartlarımızı
-                </Link>{" "}
-                kabul etmiş olursunuz.
-              </Typography>
-            </Box>
+            )}
           </CardContent>
         </Card>
       </Container>

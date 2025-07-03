@@ -1,5 +1,7 @@
 {
-  "/faydalari/page": "app/faydalari/page.js",
   "/iletisim/page": "app/iletisim/page.js",
-  "/ozellikler/page": "app/ozellikler/page.js"
+  "/page": "app/page.js",
+  "/faydalari/page": "app/faydalari/page.js",
+  "/tanisma-formu/page": "app/tanisma-formu/page.js",
+  "/hakkimizda/page": "app/hakkimizda/page.js"
 }
