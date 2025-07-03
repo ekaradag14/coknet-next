@@ -180,12 +180,13 @@ export default function TopNavigation() {
           >
             {/* Mobile: Logo + Menu Button row, then Countdown below */}
             <Box sx={{ display: { xs: "flex", lg: "none" }, flexDirection: "column", width: "100%", mt: 1 }}>
-              <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%",mb:1 }}>
+              <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center",mb:1 }}>
                 <Box
                   component={Link}
                   href="/"
                   sx={{
                     display: "block",
+                     width: "150px",
                     textDecoration: "none",
                     color: "inherit",
                     "&:hover": { textDecoration: "none" },
@@ -201,8 +202,9 @@ export default function TopNavigation() {
                   color="inherit"
                   aria-label="open drawer"
                   edge="start"
+          
                   onClick={handleDrawerToggle}
-                  sx={{ color: "#374151" }}
+                  sx={{ color: "#374151",marginLeft: 'auto' }}
                 >
                   <MenuIcon />
                 </IconButton>
