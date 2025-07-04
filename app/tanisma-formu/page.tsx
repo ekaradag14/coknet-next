@@ -12,6 +12,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import Link from "@mui/material/Link";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useState, useEffect } from "react";
 
 interface FormData {
@@ -20,6 +21,15 @@ interface FormData {
   email: string;
   phone: string;
   helpType: string;
+}
+
+interface ApiResponse {
+  data?: {
+    create_intro_submissions_item: any;
+  };
+  errors?: Array<{
+    message: string;
+  }>;
 }
 
 // @ts-ignore
@@ -41,6 +51,8 @@ const TanismaFormuPage = () => {
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const helpOptions = [
     {
@@ -102,6 +114,51 @@ const TanismaFormuPage = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  const submitFormToAPI = async (formData: FormData, recaptchaToken: string): Promise<boolean> => {
+    try {
+      const response = await fetch('https://api.cok.net.tr/v1/graphql', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-captcha': recaptchaToken,
+        },
+        body: JSON.stringify({
+          query: `
+            mutation InsertIntroResponse($email: String = "", $first_name: String = "", $help_category: String = "", $last_name: String = "", $phone: String = "") {
+              create_intro_submissions_item(data: {email: $email, first_name: $first_name, help_category: $help_category, last_name: $last_name, phone: $phone})
+            }
+          `,
+          variables: {
+            email: formData.email,
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            help_category: formData.helpType,
+            phone: formData.phone || "",
+          }
+        })
+      });
+
+      const result: ApiResponse = await response.json();
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      if (result.errors && result.errors.length > 0) {
+        throw new Error(result.errors[0].message);
+      }
+
+      if (!result.data?.create_intro_submissions_item) {
+        throw new Error('API response is missing expected data');
+      }
+
+      return true;
+    } catch (error) {
+      console.error('API submission error:', error);
+      throw error;
+    }
+  };
+
   useEffect(() => {
     // Load reCAPTCHA v3 script
     const scriptId = 'recaptcha-v3-script';
@@ -114,22 +171,39 @@ const TanismaFormuPage = () => {
     }
   }, []);
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (window.grecaptcha) {
-      window.grecaptcha.ready(() => {
-        window.grecaptcha.execute('6Leh3XQrAAAAAHq0f370q_OdYaBI_JcBuQBT0X0k', { action: 'submit' }).then((token: string) => {
-          setRecaptchaToken(token);
+    setSubmitError(null);
+    
+    if (!validateForm()) {
+      return;
+    }
 
-          if (validateForm()) {
-            // ... your existing submit logic
-            console.log("Form submitted:", formData);
-            setIsSubmitted(true);
-          }
+    if (window.grecaptcha) {
+      setIsLoading(true);
+      try {
+        const token = await new Promise<string>((resolve, reject) => {
+          window.grecaptcha.ready(() => {
+            window.grecaptcha.execute('6Leh3XQrAAAAAHq0f370q_OdYaBI_JcBuQBT0X0k', { action: 'submit' })
+              .then(resolve)
+              .catch(reject);
+          });
         });
-      });
+
+        setRecaptchaToken(token);
+        
+        const success = await submitFormToAPI(formData, token);
+        if (success) {
+          setIsSubmitted(true);
+        }
+      } catch (error) {
+        console.error('Form submission error:', error);
+        setSubmitError(error instanceof Error ? error.message : 'Form gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+      } finally {
+        setIsLoading(false);
+      }
     } else {
-      alert('reCAPTCHA yüklenemedi. Lütfen sayfayı yenileyin.');
+      setSubmitError('reCAPTCHA yüklenemedi. Lütfen sayfayı yenileyin.');
     }
   };
 
@@ -591,11 +665,44 @@ const TanismaFormuPage = () => {
                     </FormControl>
                   </Box>
 
+                  {/* Error Display */}
+                  {submitError && (
+                    <Alert
+                      severity="error"
+                      sx={{
+                        mb: 3,
+                        backgroundColor: "#FEF2F2",
+                        border: "1px solid #F87171",
+                        borderRadius: "8px",
+                        "& .MuiAlert-icon": {
+                          display: "none",
+                        },
+                        "& .MuiAlert-message": {
+                          width: "100%",
+                          textAlign: "center",
+                        },
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontSize: "16px",
+                          fontWeight: 600,
+                          color: "#991B1B",
+                          fontFamily:
+                            "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                        }}
+                      >
+                        {submitError}
+                      </Typography>
+                    </Alert>
+                  )}
+
                   {/* Submit Button */}
                   <Button
                     type="submit"
                     fullWidth
                     variant="outlined"
+                    disabled={isLoading}
                     sx={{
                       backgroundColor: "#FF9500",
                       borderRadius: "8px",
@@ -611,10 +718,21 @@ const TanismaFormuPage = () => {
                       "&:hover": {
                         backgroundColor: "#E6850E",
                       },
+                      "&:disabled": {
+                        backgroundColor: "#F3F4F6",
+                        color: "#9CA3AF",
+                      },
                       mb: 3,
                     }}
                   >
-                    Öncelikli Erişim Talebimi Gönder
+                    {isLoading ? (
+                      <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                        <CircularProgress size={20} sx={{ color: "#FFF" }} />
+                        <span>Gönderiliyor...</span>
+                      </Box>
+                    ) : (
+                      "Öncelikli Erişim Talebimi Gönder"
+                    )}
                   </Button>
 
                   {/* Privacy Notice */}

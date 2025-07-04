@@ -18,9 +18,28 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import TwitterIcon from "@mui/icons-material/X";
+import Alert from "@mui/material/Alert";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useState, useEffect } from "react";
 import AccordionSection from "../components/ui/AccordionSection";
 import IconButton from "@mui/material/IconButton";
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+interface ApiResponse {
+  data?: {
+    create_contact_submissions_item: any;
+  };
+  errors?: Array<{
+    message: string;
+  }>;
+}
 
 // @ts-ignore
 declare global {
@@ -31,7 +50,7 @@ declare global {
 
 const ContactPage = () => {
   "use client";
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
     email: "",
@@ -41,6 +60,9 @@ const ContactPage = () => {
 
   const [expandedFAQ, setExpandedFAQ] = useState<string | false>(false);
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     // Load reCAPTCHA v3 script
@@ -61,20 +83,120 @@ const ContactPage = () => {
     }));
   };
 
+  const validateForm = () => {
+    if (!formData.firstName.trim()) {
+      setSubmitError("Ad alanı zorunludur");
+      return false;
+    }
+    if (!formData.lastName.trim()) {
+      setSubmitError("Soyad alanı zorunludur");
+      return false;
+    }
+    if (!formData.email.trim()) {
+      setSubmitError("E-posta alanı zorunludur");
+      return false;
+    }
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      setSubmitError("Geçerli bir e-posta adresi giriniz");
+      return false;
+    }
+    if (!formData.subject.trim()) {
+      setSubmitError("Konu alanı zorunludur");
+      return false;
+    }
+    if (!formData.message.trim()) {
+      setSubmitError("Mesaj alanı zorunludur");
+      return false;
+    }
+    return true;
+  };
+
+  const submitFormToAPI = async (formData: FormData, recaptchaToken: string): Promise<boolean> => {
+    try {
+      const response = await fetch('https://api.cok.net.tr/v1/graphql', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-captcha': recaptchaToken,
+        },
+        body: JSON.stringify({
+          query: `
+            mutation InsertContactResponse($email: String = "", $first_name: String = "", $last_name: String = "", $message: String = "", $subject: String = "") {
+              create_contact_submissions_item(data: {email: $email, first_name: $first_name, last_name: $last_name, message: $message, subject: $subject})
+            }
+          `,
+          variables: {
+            email: formData.email,
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            message: formData.message,
+            subject: formData.subject,
+          }
+        })
+      });
+
+      const result: ApiResponse = await response.json();
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      if (result.errors && result.errors.length > 0) {
+        throw new Error(result.errors[0].message);
+      }
+
+      if (!result.data?.create_contact_submissions_item) {
+        throw new Error('API response is missing expected data');
+      }
+
+      return true;
+    } catch (error) {
+      console.error('API submission error:', error);
+      throw error;
+    }
+  };
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    // Execute reCAPTCHA v3
+    setSubmitError(null);
+    
+    if (!validateForm()) {
+      return;
+    }
+
     if (window.grecaptcha) {
-      window.grecaptcha.ready(() => {
-        window.grecaptcha.execute('6Leh3XQrAAAAAHq0f370q_OdYaBI_JcBuQBT0X0k', { action: 'submit' }).then((token: string) => {
-          setRecaptchaToken(token);
-          // Now you can include the token in your form submission (e.g., send to backend)
-          console.log('reCAPTCHA v3 token:', token);
-          // ... your existing submit logic (e.g., send formData + token to API)
+      setIsLoading(true);
+      try {
+        const token = await new Promise<string>((resolve, reject) => {
+          window.grecaptcha.ready(() => {
+            window.grecaptcha.execute('6Leh3XQrAAAAAHq0f370q_OdYaBI_JcBuQBT0X0k', { action: 'submit' })
+              .then(resolve)
+              .catch(reject);
+          });
         });
-      });
+
+        setRecaptchaToken(token);
+        
+        const success = await submitFormToAPI(formData, token);
+        if (success) {
+          setIsSubmitted(true);
+          // Reset form after successful submission
+          setFormData({
+            firstName: "",
+            lastName: "",
+            email: "",
+            subject: "",
+            message: "",
+          });
+        }
+      } catch (error) {
+        console.error('Form submission error:', error);
+        setSubmitError(error instanceof Error ? error.message : 'Mesaj gönderilirken bir hata oluştu. Lütfen tekrar deneyin.');
+      } finally {
+        setIsLoading(false);
+      }
     } else {
-      alert('reCAPTCHA yüklenemedi. Lütfen sayfayı yenileyin.');
+      setSubmitError('reCAPTCHA yüklenemedi. Lütfen sayfayı yenileyin.');
     }
   };
 
@@ -360,19 +482,61 @@ const ContactPage = () => {
                 backgroundColor: "#FFF",
               }}
             >
-              <Typography
-                variant="h3"
-                sx={{
-                  fontSize: { xs: "20px", md: "24px" },
-                  fontWeight: 700,
-                  color: "#111827",
-                  mb: 3,
-                }}
-              >
-                Mesaj Gönder
-              </Typography>
+              {isSubmitted ? (
+                <Box sx={{ textAlign: "center", py: { xs: 4, md: 6 } }}>
+                  <Typography
+                    variant="h3"
+                    sx={{
+                      fontSize: { xs: "20px", md: "24px" },
+                      fontWeight: 700,
+                      color: "#22C55E",
+                      mb: 2,
+                      fontFamily:
+                        "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                    }}
+                  >
+                    Mesajınız başarıyla gönderildi!
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      fontSize: "16px",
+                      color: "#374151",
+                      fontFamily:
+                        "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                    }}
+                  >
+                    En kısa sürede size dönüş yapacağız.
+                  </Typography>
+                  <Button
+                    onClick={() => setIsSubmitted(false)}
+                    sx={{
+                      mt: 3,
+                      backgroundColor: "#FF9500",
+                      color: "#FFF",
+                      "&:hover": {
+                        backgroundColor: "#E6850E",
+                      },
+                    }}
+                  >
+                    Yeni Mesaj Gönder
+                  </Button>
+                </Box>
+              ) : (
+                <>
+                  <Typography
+                    variant="h3"
+                    sx={{
+                      fontSize: { xs: "20px", md: "24px" },
+                      fontWeight: 700,
+                      color: "#111827",
+                      mb: 3,
+                    }}
+                  >
+                    Mesaj Gönder
+                  </Typography>
 
-              <Box component="form" onSubmit={handleSubmit}>
+                  <Box component="form" onSubmit={handleSubmit}>
                 <Stack spacing={3}>
                   <Box>
                     <InputLabel
@@ -495,10 +659,43 @@ const ContactPage = () => {
 
                     />
                   </Box>
+
+                  {/* Error Display */}
+                  {submitError && (
+                    <Alert
+                      severity="error"
+                      sx={{
+                        backgroundColor: "#FEF2F2",
+                        border: "1px solid #F87171",
+                        borderRadius: "8px",
+                        "& .MuiAlert-icon": {
+                          display: "none",
+                        },
+                        "& .MuiAlert-message": {
+                          width: "100%",
+                          textAlign: "center",
+                        },
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontSize: "16px",
+                          fontWeight: 600,
+                          color: "#991B1B",
+                          fontFamily:
+                            "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+                        }}
+                      >
+                        {submitError}
+                      </Typography>
+                    </Alert>
+                  )}
+
                   <Button
                     type="submit"
                     variant="outlined"
                     fullWidth
+                    disabled={isLoading}
                     sx={{
                       backgroundColor: "#FF9500",
                       borderRadius: "8px",
@@ -511,12 +708,25 @@ const ContactPage = () => {
                       "&:hover": {
                         backgroundColor: "#E6850E",
                       },
+                      "&:disabled": {
+                        backgroundColor: "#F3F4F6",
+                        color: "#9CA3AF",
+                      },
                     }}
                   >
-                    Mesaj Gönder
+                    {isLoading ? (
+                      <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                        <CircularProgress size={20} sx={{ color: "#FFF" }} />
+                        <span>Gönderiliyor...</span>
+                      </Box>
+                    ) : (
+                      "Mesaj Gönder"
+                    )}
                   </Button>
                 </Stack>
               </Box>
+                </>
+              )}
             </Card>
 
             {/* Map Section */}
