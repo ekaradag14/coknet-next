@@ -73,7 +73,7 @@ export default function TopNavigation() {
           borderBottom: "1px solid #E2E8F0",
         }}
       >
-        <Stack direction="row" spacing={1.5} alignItems="center">
+        <Stack direction="row" spacing={1.5} alignItems="center" sx={{width: '150px'}}>
           <CokNetIcon />
         </Stack>
         <IconButton
