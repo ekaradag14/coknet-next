@@ -40,12 +40,12 @@ export default function TopNavigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navigationItems = [
-    { label: "Özelliklerimiz", href: "/ozellikler", icon: <LightbulbIcon /> },
-    { label: "Faydaları", href: "/faydalari", icon: <StarIcon /> },
-    { label: "Hakkımızda", href: "/hakkimizda", icon: <InfoIcon /> },
+    { label: "Özelliklerimiz", href: "/ozellikler" },
+    { label: "Faydaları", href: "/faydalari" },
+    { label: "Hakkımızda", href: "/hakkimizda" },
     // { label: "Blog", href: "/blog", icon: <ArticleIcon /> }, // Blog commented out
-    { label: "Hesaplama", href: "/hesaplama", icon: <CalculateIcon /> },
-    { label: "İletişim", href: "/iletisim", icon: <EmailIcon /> },
+    { label: "Hesaplama", href: "/hesaplama" },
+    { label: "İletişim", href: "/iletisim" },
   ];
 
   const handleDrawerToggle = () => {
@@ -110,9 +110,6 @@ export default function TopNavigation() {
                   },
                 }}
               >
-                <ListItemIcon sx={{ minWidth: 44, color: "#000" }}>
-                  {item.icon}
-                </ListItemIcon>
                 <ListItemText
                   primary={item.label}
                   primaryTypographyProps={{
