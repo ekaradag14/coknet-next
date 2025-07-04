@@ -8,10 +8,13 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import InfoIcon from "@mui/icons-material/Info";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SubjectCard, { SubjectData } from "../../components/cards/SubjectCard";
+import SSSSection from "../../components/ui/SSSSection";
 
 interface TYTResults {
   nets: { [key: string]: number };
@@ -26,10 +29,12 @@ interface ResultsCardProps {
   results: TYTResults;
   obp: number;
   subjects: SubjectData[];
+  obpHalfCoefficient: boolean;
+  obpVocationalBonus: boolean;
   onReset: () => void;
 }
 
-function ResultsCard({ results, obp, subjects, onReset }: ResultsCardProps) {
+function ResultsCard({ results, obp, subjects, obpHalfCoefficient, obpVocationalBonus, onReset }: ResultsCardProps) {
   const calculateBlank = (subject: SubjectData) => {
     return subject.totalQuestions - subject.correct - subject.wrong;
   };
@@ -87,8 +92,7 @@ function ResultsCard({ results, obp, subjects, onReset }: ResultsCardProps) {
             fontFamily: "Inter, -apple-system, Roboto, Helvetica, sans-serif",
           }}
         >
-          Detaylı TYT hesaplama sonuçlarınız aşağıda gösterilmektedir. Tüm net
-          hesaplamaları ve puan dağılımları ÖSYM katsayıları ile hesaplanmıştır.
+          Detaylı TYT hesaplama sonuçlarınız aşağıda gösterilmektedir. 2024 ÖSYM katsayıları kullanılarak hesaplanmıştır.
         </Typography>
       </Box>
 
@@ -483,7 +487,7 @@ function ResultsCard({ results, obp, subjects, onReset }: ResultsCardProps) {
                           "Inter, -apple-system, Roboto, Helvetica, sans-serif",
                       }}
                     >
-                      100 + (Toplam Net × 3.33)
+                      145 + (Türkçe Net × 2.9) + (Sosyal Net × 2.93) + (Matematik Net × 2.92) + (Fen Net × 3.14)
                     </Typography>
                   </Card>
 
@@ -769,6 +773,20 @@ function ResultsCard({ results, obp, subjects, onReset }: ResultsCardProps) {
               Hesaplama Detayları
             </Typography>
 
+            <Typography
+              variant="body2"
+              sx={{
+                fontSize: "14px",
+                fontWeight: 500,
+                color: "#10B981",
+                mb: 3,
+                fontFamily:
+                  "Inter, -apple-system, Roboto, Helvetica, sans-serif",
+              }}
+            >
+              📊 2024 TYT Katsayıları: Türkçe (2.9), Sosyal Bilgiler (2.93), Matematik (2.92), Fen Bilimleri (3.14)
+            </Typography>
+
             {[
               {
                 label: "Net Hesaplama Formülü:",
@@ -776,11 +794,13 @@ function ResultsCard({ results, obp, subjects, onReset }: ResultsCardProps) {
               },
               {
                 label: "Ham TYT Puanı Formülü:",
-                value: "100 + (Toplam Net × 3.33)",
+                value: "145 + (Türkçe Net × 2.9) + (Sosyal Net × 2.93) + (Matematik Net × 2.92) + (Fen Net × 3.14)",
               },
               {
                 label: "Yerleştirme Puanı Formülü:",
-                value: "(Ham TYT × 0.4) + (OBP × 0.6)",
+                value: obpHalfCoefficient 
+                  ? "Ham TYT + (OBP × 0.06)" + (obpVocationalBonus ? " + (OBP × 0.06)" : "")
+                  : "Ham TYT + (OBP × 0.12)" + (obpVocationalBonus ? " + (OBP × 0.06)" : ""),
               },
             ].map((item, index) => (
               <Box
@@ -835,8 +855,7 @@ function ResultsCard({ results, obp, subjects, onReset }: ResultsCardProps) {
                   "Inter, -apple-system, Roboto, Helvetica, sans-serif",
               }}
             >
-              * Bu hesaplamalar ÖSYM'nin resmi katsayılarına dayanmaktadır.
-              Gerçek puanınız küçük farklılıklar gösterebilir.
+              * Bu hesaplamalar 2024 ÖSYM TYT katsayılarına dayanmaktadır. Katsayılar her yıl değişebilir. Gerçek puanınız küçük farklılıklar gösterebilir.
             </Typography>
           </Card>
 
@@ -870,12 +889,12 @@ function ResultsCard({ results, obp, subjects, onReset }: ResultsCardProps) {
   );
 }
 
-// Define coefficients separately
-const SUBJECT_COEFFICIENTS: { [key: string]: number } = {
-  "Türkçe": 1.32,
-  "Matematik": 1.32,
-  "Sosyal Bilgiler": 1.36,
-  "Fen Bilimleri": 1.36,
+// 2024 TYT Subject Coefficients (ÖSYM)
+const TYT_2024_COEFFICIENTS: { [key: string]: number } = {
+  "Türkçe": 2.9,
+  "Sosyal Bilgiler": 2.93,
+  "Matematik": 2.92,
+  "Fen Bilimleri": 3.14,
 };
 
 export default function TYTPuanHesaplamaPage() {
@@ -907,7 +926,11 @@ export default function TYTPuanHesaplamaPage() {
   ]);
 
   const [obp, setObp] = useState<number | null>(null);
+  const [diplomaPuanı, setDiplomaPuanı] = useState<number | null>(null);
   const [results, setResults] = useState<TYTResults | null>(null);
+  const [obpHalfCoefficient, setObpHalfCoefficient] = useState(false);
+  const [obpVocationalBonus, setObpVocationalBonus] = useState(false);
+  const [hasCalculated, setHasCalculated] = useState(false);
   const resultsRef = useRef<HTMLDivElement>(null);
 
   const handleSubjectUpdate = (
@@ -916,6 +939,28 @@ export default function TYTPuanHesaplamaPage() {
     value: number,
   ) => {
     const newSubjects = [...subjects];
+    const total = newSubjects[index].totalQuestions;
+    
+    // Ensure value is within valid range
+    if (value < 0) value = 0;
+    if (value > total) value = total;
+    
+    let otherField = field === "correct" ? "wrong" : "correct";
+    let otherValue = otherField === "correct" ? newSubjects[index].correct : newSubjects[index].wrong;
+    
+    // If sum would exceed total, adjust the other field
+    if (value + otherValue > total) {
+      otherValue = total - value;
+      if (otherValue < 0) otherValue = 0;
+      
+      if (otherField === "correct") {
+        newSubjects[index].correct = otherValue;
+      } else {
+        newSubjects[index].wrong = otherValue;
+      }
+    }
+    
+    // Set the current field
     newSubjects[index][field] = value;
     setSubjects(newSubjects);
   };
@@ -925,27 +970,49 @@ export default function TYTPuanHesaplamaPage() {
       subjects.every(
         (subject) => subject.correct + subject.wrong <= subject.totalQuestions,
       ) &&
-      typeof obp === 'number' &&
-      obp >= 250 &&
-      obp <= 500
+      ((typeof obp === 'number' && obp >= 250 && obp <= 500) ||
+       (typeof diplomaPuanı === 'number' && diplomaPuanı >= 50 && diplomaPuanı <= 100))
     );
   };
 
   const calculateTYT = (shouldScroll = false) => {
-    if (!isFormValid() || typeof obp !== 'number') return;
+    if (!isFormValid()) return;
 
     const nets: { [key: string]: number } = {};
     let totalNet = 0;
-    let rawScore = 100; // Base score
+    let rawScore = 145; // Base score
 
     subjects.forEach((subject) => {
       const net = subject.correct - subject.wrong / 4;
       nets[subject.name] = net;
       totalNet += net;
-      rawScore += net * (SUBJECT_COEFFICIENTS[subject.name] || 1);
+      // Apply 2024 TYT coefficients for each subject
+      rawScore += net * (TYT_2024_COEFFICIENTS[subject.name] || 0);
     });
 
-    const obpContribution = obp * 0.12;
+    // Calculate OBP - use diploma puanı if provided, otherwise use direct OBP
+    let finalObp = obp;
+    if (typeof diplomaPuanı === 'number' && typeof obp !== 'number') {
+      finalObp = diplomaPuanı * 5; // Convert diploma puanı to OBP
+    }
+
+    if (typeof finalObp !== 'number') return;
+
+    // Calculate OBP contribution based on options
+    let obpContribution = 0;
+    if (obpHalfCoefficient) {
+      // Half coefficient: 0.06 instead of 0.12
+      obpContribution = finalObp * 0.06;
+    } else {
+      // Normal coefficient: 0.12
+      obpContribution = finalObp * 0.12;
+    }
+
+    // Add vocational bonus if applicable
+    if (obpVocationalBonus) {
+      obpContribution += finalObp * 0.06;
+    }
+
     const finalScore = rawScore + obpContribution;
 
     setResults({
@@ -956,6 +1023,8 @@ export default function TYTPuanHesaplamaPage() {
       finalScore,
     });
 
+    setHasCalculated(true);
+
     if (shouldScroll) {
       setTimeout(() => {
         resultsRef.current?.scrollIntoView({
@@ -965,15 +1034,6 @@ export default function TYTPuanHesaplamaPage() {
       }, 100);
     }
   };
-
-  // Auto-calculate when form is valid, but do NOT scroll
-  useEffect(() => {
-    if (isFormValid()) {
-      calculateTYT(false);
-    } else {
-      setResults(null);
-    }
-  }, [subjects, obp]);
 
   // Move handleReset here, before return
   const handleReset = () => {
@@ -1004,7 +1064,11 @@ export default function TYTPuanHesaplamaPage() {
       },
     ]);
     setObp(null);
+    setDiplomaPuanı(null);
+    setObpHalfCoefficient(false);
+    setObpVocationalBonus(false);
     setResults(null);
+    setHasCalculated(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -1097,7 +1161,7 @@ export default function TYTPuanHesaplamaPage() {
             lineHeight: 1.6,
           }}
         >
-          Doğru ve yanlış sayılarını girerek TYT netlerinizi ve puanınızı hesaplayın. ÖSYM katsayıları kullanılarak gerçek puanınızı öğrenin.
+          Doğru ve yanlış sayılarını girerek TYT netlerinizi ve puanınızı hesaplayın. 2024 ÖSYM katsayıları kullanılarak gerçek puanınızı öğrenin.
         </Typography>
       </Box>
       {/* Main Content */}
@@ -1159,32 +1223,197 @@ export default function TYTPuanHesaplamaPage() {
                   mb: 2,
                 }}
               >
-                OBP Puanınız
+                OBP Puanınız veya Diploma Puanınız
               </Typography>
 
-              <TextField
-                fullWidth
-                type="number"
-                value={obp === null ? '' : obp}
-                onChange={(e) => setObp(e.target.value === '' ? null : Number(e.target.value))}
-                placeholder="OBP puanınızı girin (250-500)"
-                inputProps={{ min: 250, max: 500, step: 0.01 }}
-                error={typeof obp !== 'number' || obp < 250 || obp > 500}
+              <Typography
+                variant="caption"
                 sx={{
-                  "& .MuiOutlinedInput-root": {
-                    height: "50px",
-                    borderRadius: "8px",
-                    "& input": {
-                      fontSize: "16px",
-                      padding: "14px 16px",
-                      "&::placeholder": {
-                        color: "#999",
-                        fontSize: "16px",
-                      },
-                    },
-                  },
+                  fontSize: "12px",
+                  color: "#6B7280",
+                  lineHeight: "16px",
+                  mb: 3,
+                  display: "block",
                 }}
-              />
+              >
+                OBP puanınızı doğrudan girebilir veya diploma puanınızı girerek OBP'nin otomatik hesaplanmasını sağlayabilirsiniz.
+              </Typography>
+
+              <Box sx={{ display: "flex", flexDirection: { xs: "column", sm: "row" }, gap: 2, mb: 3 }}>
+                <Box sx={{ flex: 1 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontSize: "14px",
+                      fontWeight: 500,
+                      color: "#374151",
+                      lineHeight: "21px",
+                      mb: 1,
+                    }}
+                  >
+                    OBP Puanı
+                  </Typography>
+                  <TextField
+                    fullWidth
+                    type="number"
+                    value={obp === null ? '' : obp}
+                    onChange={(e) => {
+                      const value = e.target.value === '' ? null : Number(e.target.value);
+                      setObp(value);
+                      if (value !== null) {
+                        setDiplomaPuanı(null); // Clear diploma puanı when OBP is entered
+                      }
+                    }}
+                    placeholder="OBP puanınızı girin (250-500)"
+                    inputProps={{ min: 250, max: 500, step: 0.01 }}
+                    error={typeof obp === 'number' && (obp < 250 || obp > 500)}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        height: "50px",
+                        borderRadius: "8px",
+                        "& input": {
+                          fontSize: "16px",
+                          padding: "14px 16px",
+                          "&::placeholder": {
+                            color: "#999",
+                            fontSize: "16px",
+                          },
+                        },
+                      },
+                    }}
+                  />
+                </Box>
+
+                <Box sx={{ flex: 1 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontSize: "14px",
+                      fontWeight: 500,
+                      color: "#374151",
+                      lineHeight: "21px",
+                      mb: 1,
+                    }}
+                  >
+                    Diploma Puanı
+                  </Typography>
+                  <TextField
+                    fullWidth
+                    type="number"
+                    value={diplomaPuanı === null ? '' : diplomaPuanı}
+                    onChange={(e) => {
+                      const value = e.target.value === '' ? null : Number(e.target.value);
+                      setDiplomaPuanı(value);
+                      if (value !== null) {
+                        setObp(null); // Clear OBP when diploma puanı is entered
+                      }
+                    }}
+                    placeholder="Diploma puanınızı girin (50-100)"
+                    inputProps={{ min: 50, max: 100, step: 0.01 }}
+                    error={typeof diplomaPuanı === 'number' && (diplomaPuanı < 50 || diplomaPuanı > 100)}
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        height: "50px",
+                        borderRadius: "8px",
+                        "& input": {
+                          fontSize: "16px",
+                          padding: "14px 16px",
+                          "&::placeholder": {
+                            color: "#999",
+                            fontSize: "16px",
+                          },
+                        },
+                      },
+                    }}
+                  />
+                </Box>
+              </Box>
+
+              {/* Show calculated OBP if diploma puanı is provided */}
+              {typeof diplomaPuanı === 'number' && typeof obp !== 'number' && (
+                <Box sx={{ 
+                  p: 2, 
+                  backgroundColor: "#F0FDF4", 
+                  borderRadius: "8px", 
+                  border: "1px solid #BBF7D0",
+                  mb: 3
+                }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontSize: "14px",
+                      fontWeight: 500,
+                      color: "#166534",
+                      lineHeight: "20px",
+                    }}
+                  >
+                    📊 Hesaplanan OBP: {diplomaPuanı} × 5 = {(diplomaPuanı * 5).toFixed(2)}
+                  </Typography>
+                </Box>
+              )}
+
+              {/* OBP Coefficient Options */}
+              <Box sx={{ mt: 3 }}>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontSize: "16px",
+                    fontWeight: 600,
+                    color: "#111827",
+                    mb: 2,
+                  }}
+                >
+                  OBP Katsayısı:
+                </Typography>
+                
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={obpHalfCoefficient}
+                      onChange={(e) => setObpHalfCoefficient(e.target.checked)}
+
+                    />
+                  }
+                  label={
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontSize: "14px",
+                        color: "#374151",
+                    
+                        margin: 'auto',
+                      }}
+                    >
+                      Önceki sene YKS puanları ile bir yükseköğretim programına yerleştim.
+                    </Typography>
+                  }
+                  sx={{alignItems: "flex-start" }}
+                />
+
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={obpVocationalBonus}
+                      onChange={(e) => setObpVocationalBonus(e.target.checked)}
+
+                    />
+                  }
+                  label={
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        fontSize: "14px",
+                        color: "#374151",
+                        margin: 'auto',
+            
+                      }}
+                    >
+                      Bir mesleğe yönelik program uygulayan ortaöğretim kurumundan mezun oldum.
+                    </Typography>
+                  }
+                  sx={{ alignItems: "flex-start",  }}
+                />
+              </Box>
             </CardContent>
           </Card>
 
@@ -1223,7 +1452,7 @@ export default function TYTPuanHesaplamaPage() {
 
         {/* Results Section - Full Width Below Calculate Button */}
         <Box ref={resultsRef} sx={{ width: "100%" }}>
-          {results && typeof obp === 'number' ? (
+          {hasCalculated && results && (typeof obp === 'number' || typeof diplomaPuanı === 'number') ? (
             <Box
               sx={{
                 position: "relative",
@@ -1237,7 +1466,14 @@ export default function TYTPuanHesaplamaPage() {
                 },
               }}
             >
-              <ResultsCard results={results} obp={obp} subjects={subjects} onReset={handleReset} />
+              <ResultsCard 
+                results={results} 
+                obp={typeof obp === 'number' ? obp : (diplomaPuanı! * 5)} 
+                subjects={subjects} 
+                obpHalfCoefficient={obpHalfCoefficient}
+                obpVocationalBonus={obpVocationalBonus}
+                onReset={handleReset} 
+              />
             </Box>
           ) : (
             <Card
@@ -1275,6 +1511,8 @@ export default function TYTPuanHesaplamaPage() {
           )}
         </Box>
       </Container>
+      
+      <SSSSection />
     </Box>
   );
 }

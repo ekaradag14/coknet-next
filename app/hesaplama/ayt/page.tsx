@@ -13,44 +13,120 @@ import CardContent from "@mui/material/CardContent";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Divider from "@mui/material/Divider";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import SSSSection from "../../components/ui/SSSSection";
 
 const SUBJECTS = [
-  { key: "matematik", name: "Matematik", total: 40 },
-  { key: "fizik", name: "Fizik", total: 14 },
-  { key: "kimya", name: "Kimya", total: 13 },
-  { key: "biyoloji", name: "Biyoloji", total: 13 },
-  { key: "edebiyat", name: "Edebiyat", total: 24 },
-  { key: "tarih1", name: "Tarih-1", total: 10 },
-  { key: "cografya1", name: "Coğrafya-1", total: 6 },
-  { key: "tarih2", name: "Tarih-2", total: 11 },
-  { key: "cografya2", name: "Coğrafya-2", total: 11 },
-  { key: "felsefe_din", name: "Felsefe Grubu + Din", total: 12 },
+  // TYT Subjects
+  { key: "tyt_turkce", name: "TYT Türkçe", total: 40 },
+  { key: "tyt_matematik", name: "TYT Matematik", total: 40 },
+  { key: "tyt_sosyal", name: "TYT Sosyal Bilgiler", total: 20 },
+  { key: "tyt_fen", name: "TYT Fen Bilimleri", total: 20 },
+  // AYT Subjects
+  { key: "edebiyat", name: "AYT Türk Dili ve Edebiyatı", total: 24 },
+  { key: "tarih1", name: "AYT Tarih-1", total: 10 },
+  { key: "cografya1", name: "AYT Coğrafya-1", total: 6 },
+  { key: "tarih2", name: "AYT Tarih-2", total: 11 },
+  { key: "cografya2", name: "AYT Coğrafya-2", total: 11 },
+  { key: "felsefe", name: "AYT Felsefe", total: 12 },
+  { key: "din_felsefe", name: "AYT Din Kültürü / Felsefe", total: 6 },
+  { key: "matematik", name: "AYT Matematik", total: 40 },
+  { key: "fizik", name: "AYT Fizik", total: 14 },
+  { key: "kimya", name: "AYT Kimya", total: 13 },
+  { key: "biyoloji", name: "AYT Biyoloji", total: 13 },
+  { key: "yabanci_dil", name: "AYT Yabancı Dil (İng.)", total: 80 },
 ];
 
 const COEFFICIENTS = {
   SAY: {
-    matematik: 3.0,
-    fizik: 2.85,
+    // TYT Subjects
+    tyt_turkce: 1.11,
+    tyt_matematik: 1.11,
+    tyt_sosyal: 1.12,
+    tyt_fen: 1.20,
+    // AYT Subjects
+    edebiyat: 0.0,
+    tarih1: 0.0,
+    cografya1: 0.0,
+    tarih2: 0.0,
+    cografya2: 0.0,
+    felsefe: 0.0,
+    din_felsefe: 0.0,
+    matematik: 3.19,
+    fizik: 2.43,
     kimya: 3.07,
-    biyoloji: 3.07,
+    biyoloji: 2.51,
+    yabanci_dil: 0.0,
+  },
+  SÖZ: {
+    // TYT Subjects
+    tyt_turkce: 1.23,
+    tyt_matematik: 1.24,
+    tyt_sosyal: 1.24,
+    tyt_fen: 1.33,
+    // AYT Subjects
+    edebiyat: 3.06,
+    tarih1: 2.57,
+    cografya1: 2.74,
+    tarih2: 3.16,
+    cografya2: 2.82,
+    felsefe: 3.85,
+    din_felsefe: 3.13,
+    matematik: 0.0,
+    fizik: 0.0,
+    kimya: 0.0,
+    biyoloji: 0.0,
+    yabanci_dil: 0.0,
   },
   EA: {
-    matematik: 3.0,
-    edebiyat: 3.0,
-    tarih1: 2.8,
-    cografya1: 3.33,
+    // TYT Subjects
+    tyt_turkce: 1.14,
+    tyt_matematik: 1.15,
+    tyt_sosyal: 1.15,
+    tyt_fen: 1.23,
+    // AYT Subjects
+    edebiyat: 2.83,
+    tarih1: 2.38,
+    cografya1: 2.54,
+    tarih2: 0.0,
+    cografya2: 0.0,
+    felsefe: 0.0,
+    din_felsefe: 0.0,
+    matematik: 3.28,
+    fizik: 0.0,
+    kimya: 0.0,
+    biyoloji: 0.0,
+    yabanci_dil: 0.0,
   },
-  SOZ: {
-    edebiyat: 3.0,
-    tarih1: 2.8,
-    cografya1: 3.33,
-    tarih2: 2.91,
-    cografya2: 2.91,
-    felsefe_din: 3.33,
+  DİL: {
+    // TYT Subjects
+    tyt_turkce: 1.50,
+    tyt_matematik: 1.50,
+    tyt_sosyal: 1.51,
+    tyt_fen: 1.62,
+    // AYT Subjects
+    edebiyat: 0.0,
+    tarih1: 0.0,
+    cografya1: 0.0,
+    tarih2: 0.0,
+    cografya2: 0.0,
+    felsefe: 0.0,
+    din_felsefe: 0.0,
+    matematik: 0.0,
+    fizik: 0.0,
+    kimya: 0.0,
+    biyoloji: 0.0,
+    yabanci_dil: 2.61,
   },
 };
 
-const PUAN_TURLERI = ["SAY", "EA", "SOZ"];
+const puanTurleri = [
+  { value: "SAY", label: "SAY (Sayısal)" },
+  { value: "SÖZ", label: "SÖZ (Sözel)" },
+  { value: "EA", label: "EA (Eşit Ağırlık)" },
+  { value: "DİL", label: "DİL (Yabancı Dil)" },
+];
 
 function calcNet(dogru: number, yanlis: number) {
   return dogru - yanlis / 4;
@@ -61,18 +137,18 @@ interface AYTResultsCardProps {
   subjects: typeof SUBJECTS;
   nets: Record<string, number>;
   obp: number;
-  tyt: number;
-  puanlar: { [tur: string]: { ayt: number; yerPuan: number } };
+  puanlar: Record<string, { ayt: number; yerPuan: number }>;
   onReset: () => void;
 }
 
-function AYTResultsCard({ answers, subjects, nets, obp, tyt, puanlar, onReset }: AYTResultsCardProps) {
+function AYTResultsCard({ answers, subjects, nets, obp, puanlar, onReset }: AYTResultsCardProps) {
   const [tab, setTab] = useState(0);
-  const PUAN_TURLERI = Object.keys(puanlar) as (keyof typeof COEFFICIENTS)[];
-  const activeTur = PUAN_TURLERI[tab];
+  const activeTur = puanTurleri[tab]?.value as "SAY" | "EA" | "SÖZ" | "DİL" || "SAY";
   const activePuan = puanlar[activeTur];
   // Netler for this puan türü
-  const netKeys = Object.keys(COEFFICIENTS[activeTur] || {});
+  const relevantNets = subjects
+    .filter((s) => COEFFICIENTS[activeTur][s.key as keyof typeof COEFFICIENTS[typeof activeTur]] > 0)
+    .map((s) => ({ ...s, net: nets[s.key] }));
 
   // Calculate total correct, wrong, blank
   const totalCorrect = subjects.reduce((sum, s) => sum + answers[s.key].dogru, 0);
@@ -127,8 +203,8 @@ function AYTResultsCard({ answers, subjects, nets, obp, tyt, puanlar, onReset }:
                   },
                 }}
               >
-                {PUAN_TURLERI.map((tur, i) => (
-                  <Tab key={tur} label={tur + ' Puanı'} />
+                {puanTurleri.map((tur, i) => (
+                  <Tab key={tur.value} label={tur.label} />
                 ))}
               </Tabs>
             </Box>
@@ -137,10 +213,10 @@ function AYTResultsCard({ answers, subjects, nets, obp, tyt, puanlar, onReset }:
           {/* Netler Table + AYT Puan */}
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, mb: 3 }}>
             <Box sx={{ flex: 1, minWidth: 260 }}>
-              {netKeys.map((key) => (
-                <Box key={key} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', py: 1 }}>
-                  <Typography sx={{ fontWeight: 500, color: '#374151' }}>{subjects.find(s => s.key === key)?.name} Net:</Typography>
-                  <Typography sx={{ fontWeight: 700, color: nets[key] >= 0 ? '#10B981' : '#EF4444' }}>{nets[key]?.toFixed(2) ?? '-'}</Typography>
+              {relevantNets.map((s) => (
+                <Box key={s.key} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', py: 1 }}>
+                  <Typography sx={{ fontWeight: 500, color: '#374151' }}>{s.name} Net:</Typography>
+                  <Typography sx={{ fontWeight: 700, color: s.net >= 0 ? '#10B981' : '#EF4444' }}>{s.net?.toFixed(2) ?? '-'}</Typography>
                 </Box>
               ))}
             </Box>
@@ -159,7 +235,7 @@ function AYTResultsCard({ answers, subjects, nets, obp, tyt, puanlar, onReset }:
               <Typography sx={{ color: 'white', fontWeight: 700, fontSize: 48, mb: 1 }}>{activePuan.yerPuan.toFixed(2)}</Typography>
               <Typography sx={{ color: 'white', fontSize: 16, opacity: 0.9, mb: 0.5 }}>{activeTur} Yerleştirme Puanı</Typography>
               <Typography sx={{ color: 'white', fontSize: 14, opacity: 0.75 }}>
-                ({activeTur} × 0.4) + (TYT × 0.4) + (OBP × 0.2)
+                ({activeTur} × 1.0) + (OBP × 0.12)
               </Typography>
             </Card>
           </Box>
@@ -185,10 +261,6 @@ function AYTResultsCard({ answers, subjects, nets, obp, tyt, puanlar, onReset }:
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <Typography sx={{ color: '#155A7A', fontSize: 16 }}>AYT Katkısı:</Typography>
                   <Typography sx={{ fontWeight: 500, color: '#0284C7', fontSize: 16 }}>{activePuan.ayt.toFixed(2)}</Typography>
-                </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Typography sx={{ color: '#155A7A', fontSize: 16 }}>TYT Katkısı:</Typography>
-                  <Typography sx={{ fontWeight: 500, color: '#0284C7', fontSize: 16 }}>{(tyt * 0.4).toFixed(2)}</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <Typography sx={{ color: '#155A7A', fontSize: 16 }}>OBP Katkısı:</Typography>
@@ -225,7 +297,7 @@ function AYTResultsCard({ answers, subjects, nets, obp, tyt, puanlar, onReset }:
                 <Typography sx={{ color: '#374151', fontSize: 14, mb: 1 }}>Puan türüne göre değişir</Typography>
                 <Typography sx={{ color: '#6B7280', fontSize: 14 }}>Yerleştirme Puanı Formülü:</Typography>
                 <Typography sx={{ color: '#374151', fontSize: 14 }}>
-                  ({activeTur} × 0.4) + (TYT × 0.4) + (OBP × 0.2)
+                  ({activeTur} × 1.0) + (OBP × 0.12)
                 </Typography>
               </Box>
             </Box>
@@ -256,13 +328,15 @@ export default function AYTPuanHesaplamaPage() {
     }, {} as Record<string, { dogru: number; yanlis: number }>)
   );
   const [obp, setObp] = useState<number | null>(null);
-  const [tyt, setTyt] = useState<number | null>(null);
+  const [diplomaPuani, setDiplomaPuani] = useState<number | null>(null);
+  const [halfCoefficient, setHalfCoefficient] = useState(false);
+  const [vocationalBonus, setVocationalBonus] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [touched, setTouched] = useState(false);
 
   // Validation
   const obpValid = typeof obp === "number" && obp >= 250 && obp <= 500;
-  const tytValid = typeof tyt === "number" && tyt >= 100 && tyt <= 500;
+  const diplomaPuaniValid = typeof diplomaPuani === "number" && diplomaPuani >= 50 && diplomaPuani <= 100;
   const allSubjectsValid = SUBJECTS.every(
     (s) =>
       answers[s.key].dogru >= 0 &&
@@ -272,7 +346,17 @@ export default function AYTPuanHesaplamaPage() {
   const atLeastOneAnswered = SUBJECTS.some(
     (s) => answers[s.key].dogru > 0 || answers[s.key].yanlis > 0
   );
-  const canCalculate = obpValid && tytValid && allSubjectsValid && atLeastOneAnswered;
+  
+  // Only one of OBP or diploma puanı can be filled
+  const obpOrDiplomaValid = (obpValid && !diplomaPuani) || (diplomaPuaniValid && !obp);
+  const canCalculate = obpOrDiplomaValid && allSubjectsValid && atLeastOneAnswered;
+
+  // Convert diploma puanı to OBP if needed
+  const effectiveObp = obp || (diplomaPuani ? diplomaPuani * 5 : null);
+  
+  // Apply OBP coefficient adjustments
+  const adjustedObp = effectiveObp ? 
+    effectiveObp * (halfCoefficient ? 0.5 : 1) + (vocationalBonus ? 60 : 0) : null;
 
   // Netler
   const nets = SUBJECTS.reduce((acc, s) => {
@@ -281,16 +365,25 @@ export default function AYTPuanHesaplamaPage() {
   }, {} as Record<string, number>);
 
   // Puan hesaplama
-  function calcAYTPuan(puanTuru: "SAY" | "EA" | "SOZ") {
-    let ayt = 0;
+  function calcAYTPuan(puanTuru: "SAY" | "EA" | "SÖZ" | "DİL") {
+    // Base points for different fields
+    const baseScores = {
+      SAY: 133.28,
+      EA: 132.28,
+      SÖZ: 130.36,
+      DİL: 110.58,
+    };
+    
+    let ayt = baseScores[puanTuru];
     Object.entries(COEFFICIENTS[puanTuru]).forEach(([key, katsayi]) => {
       ayt += (nets[key] || 0) * katsayi;
     });
     return ayt;
   }
 
-  function calcPlacementPuan(ayt: number, tyt: number, obp: number) {
-    return ayt + tyt * 0.4 + obp * 0.12;
+  function calcPlacementPuan(ayt: number, obp: number) {
+    // Yerleştirme puanı = AYT puanı + OBP × 0.12
+    return ayt + obp * 0.12;
   }
 
   // UI
@@ -418,7 +511,7 @@ export default function AYTPuanHesaplamaPage() {
             );
           })}
         </Box>
-        {/* OBP and TYT Inputs */}
+        {/* OBP and Diploma Puanı Inputs */}
         <Box sx={{ display: "flex", flexDirection: { xs: "column", sm: "row" }, gap: 3, mb: 4 }}>
           <Box sx={{ flex: 1 }}>
             <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
@@ -431,27 +524,89 @@ export default function AYTPuanHesaplamaPage() {
               fullWidth
               type="number"
               value={obp === null ? '' : obp}
-              onChange={e => setObp(e.target.value === '' ? null : Math.max(0, Number(e.target.value)))}
+              onChange={e => {
+                const value = e.target.value === '' ? null : Math.max(0, Number(e.target.value));
+                setObp(value);
+                if (value !== null) setDiplomaPuani(null); // Clear diploma puanı if OBP is entered
+              }}
               placeholder="OBP puanınızı girin (250-500)"
               inputProps={{ min: 250, max: 500, step: 0.01 }}
-              error={!obpValid && touched}
+              error={!obpValid && touched && obp !== null}
+              disabled={diplomaPuani !== null}
             />
           </Box>
           <Box sx={{ flex: 1 }}>
             <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-              <Typography variant="h6" sx={{ fontWeight: 600, fontSize: 16, mr: 1 }}>TYT Puanı</Typography>
-              <Tooltip title="Geçerli TYT puanınız (en az 150 gereklidir)">
+              <Typography variant="h6" sx={{ fontWeight: 600, fontSize: 16, mr: 1 }}>Diploma Puanı</Typography>
+              <Tooltip title="Diploma not ortalamanız (50-100). OBP'ye çevrilir (×5)">
                 <InfoIcon fontSize="small" color="action" />
               </Tooltip>
             </Box>
             <TextField
               fullWidth
               type="number"
-              value={tyt === null ? '' : tyt}
-              onChange={e => setTyt(e.target.value === '' ? null : Math.max(0, Number(e.target.value)))}
-              placeholder="TYT puanınızı girin (100-500)"
-              inputProps={{ min: 100, max: 500, step: 0.01 }}
-              error={!tytValid && touched}
+              value={diplomaPuani === null ? '' : diplomaPuani}
+              onChange={e => {
+                const value = e.target.value === '' ? null : Math.max(0, Number(e.target.value));
+                setDiplomaPuani(value);
+                if (value !== null) setObp(null); // Clear OBP if diploma puanı is entered
+              }}
+              placeholder="Diploma puanınızı girin (50-100)"
+              inputProps={{ min: 50, max: 100, step: 0.01 }}
+              error={!diplomaPuaniValid && touched && diplomaPuani !== null}
+              disabled={obp !== null}
+            />
+          </Box>
+        </Box>
+        {/* OBP Coefficient Options */}
+        <Box sx={{ mb: 4 }}>
+          <Typography variant="h6" sx={{ fontWeight: 600, fontSize: 16, mb: 2, color: '#374151' }}>
+            OBP Katsayı Seçenekleri
+          </Typography>
+          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={halfCoefficient}
+                  onChange={(e) => setHalfCoefficient(e.target.checked)}
+                  sx={{
+                    color: '#6B7280',
+                    '&.Mui-checked': {
+                      color: '#FF9500',
+                    },
+                  }}
+                />
+              }
+              label={
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Typography sx={{ fontSize: 14, color: '#374151' }}>Önceki sene YKS puanları ile bir yükseköğretim programına yerleştim.</Typography>
+                  <Tooltip title="Meslek lisesi mezunları için OBP'nin yarısı alınır">
+                    <InfoIcon fontSize="small" color="action" sx={{ ml: 0.5 }} />
+                  </Tooltip>
+                </Box>
+              }
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={vocationalBonus}
+                  onChange={(e) => setVocationalBonus(e.target.checked)}
+                  sx={{
+                    color: '#6B7280',
+                    '&.Mui-checked': {
+                      color: '#FF9500',
+                    },
+                  }}
+                />
+              }
+              label={
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Typography sx={{ fontSize: 14, color: '#374151' }}>Bir mesleğe yönelik program uygulayan ortaöğretim kurumundan mezun oldum.</Typography>
+                  <Tooltip title="Meslek lisesi mezunları için ek 60 puan">
+                    <InfoIcon fontSize="small" color="action" sx={{ ml: 0.5 }} />
+                  </Tooltip>
+                </Box>
+              }
             />
           </Box>
         </Box>
@@ -485,18 +640,19 @@ export default function AYTPuanHesaplamaPage() {
             answers={answers}
             subjects={SUBJECTS}
             nets={nets}
-            obp={obp!}
-            tyt={tyt!}
-            puanlar={PUAN_TURLERI.reduce((acc, tur) => {
-              const ayt = calcAYTPuan(tur as any);
-              const yerPuan = calcPlacementPuan(ayt, tyt!, obp!);
-              acc[tur] = { ayt, yerPuan };
+            obp={adjustedObp!}
+            puanlar={puanTurleri.reduce((acc, tur) => {
+              const ayt = calcAYTPuan(tur.value as "SAY" | "EA" | "SÖZ" | "DİL");
+              const yerPuan = calcPlacementPuan(ayt, adjustedObp!);
+              acc[tur.value] = { ayt, yerPuan };
               return acc;
-            }, {} as any)}
+            }, {} as Record<string, { ayt: number; yerPuan: number }>)}
             onReset={() => {
               setAnswers(SUBJECTS.reduce((acc, s) => { acc[s.key] = { dogru: 0, yanlis: 0 }; return acc; }, {} as Record<string, { dogru: number; yanlis: number }>));
               setObp(null);
-              setTyt(null);
+              setDiplomaPuani(null);
+              setHalfCoefficient(false);
+              setVocationalBonus(false);
               setShowResults(false);
               setTouched(false);
               window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -504,6 +660,7 @@ export default function AYTPuanHesaplamaPage() {
           />
         )}
       </Box>
+      <SSSSection />
     </Box>
   );
 }
