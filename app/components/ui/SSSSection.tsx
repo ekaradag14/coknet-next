@@ -89,11 +89,11 @@ const faqData = [
   },
 ];
 
-export default function SSSSection() {
+export default function SSSSection({ noTitle }: { noTitle?: boolean }) {
   return (
-    <Box sx={{ maxWidth: 1200, mx: "auto", px: 2, pb: 8, mt: 8 }}>
+    <Box sx={{ maxWidth: 1200, mx: "auto", px: noTitle ? 0 : 2, pb: 8, mt: noTitle ? 0 : 8 }}>
       <AccordionSection
-        title="Sıkça Sorulan Sorular"
+        title={noTitle ? "" : "Sıkça Sorulan Sorular"}
         items={faqData}
         backgroundColor="rgba(255, 255, 255, 0.8)"
       />

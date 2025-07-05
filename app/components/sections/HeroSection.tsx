@@ -153,12 +153,12 @@ export default function HeroSection() {
                 sx={{ maxWidth: "400px" }}
               >
                 Bilgilerinizi paylaşarak{" "}
-                <Link href="#">
+                <Link href="/gizlilik-politikasi">
                   <span style={{ color: "rgba(255, 149, 0, 1)" }}>Gizlilik Politikası</span>
                 </Link>{" "}
                 ve{" "}
-                <Link href="#">
-                  <span style={{ color: "rgba(255, 149, 0, 1)" }}>Kullanım Şartları</span>
+                <Link href="/kullanici-sozlesmesi">
+                  <span style={{ color: "rgba(255, 149, 0, 1)" }}>Kullanıcı Sözleşmesi</span>
                 </Link>
                 'nı kabul etmiş olursunuz.
               </Typography>

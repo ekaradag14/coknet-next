@@ -14,9 +14,11 @@ import TwitterIcon from "@mui/icons-material/X";
 // Add these arrays above the Footer component
 const LEGAL_LINKS = [
   { label: "Gizlilik Politikası", href: "/gizlilik-politikasi" },
-  { label: "Kullanım Şartları", href: "/kullanim-sartlari" },
+  { label: "Kullanıcı Sözleşmesi", href: "/kullanici-sozlesmesi" },
   { label: "Çerez Politikası", href: "/cerez-politikasi" },
   { label: "KVKK Aydınlatma Metni", href: "/kvkk-aydinlatma-metni" },
+  { label: "KVKK Açık Rıza Metni", href: "/kvkk-acik-riza-metni" },
+  { label: "Açık Rıza Beyanı", href: "/acik-riza-beyani" },
   { label: "Sıkça Sorulan Sorular", href: "/sikca-sorulan-sorular" },
 ];
 
@@ -133,13 +135,13 @@ export default function Footer() {
                     variant="body2"
                     sx={{ color: "#9CA3AF", fontSize: "13px" }}
                   >
-                    info@coknet.com
+                    info@cok.net.tr
                   </Typography>
                   <Typography
                     variant="body2"
                     sx={{ color: "#9CA3AF", fontSize: "13px" }}
                   >
-                    destek@coknet.com
+                    destek@cok.net.tr
                   </Typography>
                 </Box>
               </Stack>

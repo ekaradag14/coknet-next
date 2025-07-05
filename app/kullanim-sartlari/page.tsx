@@ -3,243 +3,95 @@ import LegalPageTemplate from "../components/layout/LegalPageTemplate";
 const TermsOfServicePage = () => {
   "use client";
   return (
-    <LegalPageTemplate title="Kullanım Şartları" lastUpdated="15 Aralık 2024">
-      <h2>1. Genel Hükümler</h2>
+    <LegalPageTemplate title="KULLANICI SÖZLEŞMESİ" lastUpdated="15 Aralık 2024">
+      <h2>1. TARAFLAR</h2>
       <p>
-        Bu Kullanım Şartları ("Şartlar"), ÇokNet eğitim platformu ("Platform")
-        tarafından sunulan hizmetlerin kullanımını düzenler. Platformu
-        kullanarak bu şartları kabul etmiş sayılırsınız.
+        İşbu Kullanıcı Sözleşmesi (bundan sonra "Sözleşme" olarak anılacaktır) ile düzenlenen karşılıklı hak ve yükümlülükler; "Reşitpaşa Mah.Katar Cad. İtü Arı Teknokent 3 Binası No:4 İç Kapı No:B105 Sarıyer/İstanbul" adresinde mukim EĞİTİMDE DİJİTAL İÇERİK TEKNOLOJİLERİ ANONİM ŞİRKETİ (bundan sonra ''Hizmet Sağlayıcı'' olarak anılacaktır) ile sözleşmede belirtilen koşullar dâhilinde 'ÇOKNET' <a href="https://cok.net.tr" target="_blank" rel="noopener noreferrer">https://cok.net.tr</a> isimli internet sitesinden yararlanan kullanıcı (bundan sonra "Kullanıcı" olarak anılacaktır) arasında hüküm ifade etmektedir.
       </p>
       <p>
-        <strong>Hizmet Sağlayıcı:</strong> ÇokNet Eğitim Teknolojileri A.Ş.
-        <br />
-        <strong>Adres:</strong> Maslak Mahallesi, Teknoloji Caddesi No: 15,
-        Sarıyer/İstanbul
-        <br />
-        <strong>E-posta:</strong> bilgi@coknet.com
-        <br />
-        <strong>Telefon:</strong> +90 212 555 0123
+        Kullanıcı'nın web sitesine üyelik ve/veya veli kaydını tamamlaması ve elektronik olarak onay vermesi ile işbu Sözleşme hüküm ifade etmeye başlayacak olup taraflar arasında yasal olarak bağlayıcı olacaktır.
       </p>
 
-      <h2>2. Tanımlar</h2>
-      <ul>
-        <li>
-          <strong>Platform:</strong> ÇokNet web sitesi ve mobil uygulaması
-        </li>
-        <li>
-          <strong>Kullanıcı:</strong> Platformu kullanan gerçek ve tüzel kişiler
-        </li>
-        <li>
-          <strong>Öğrenci:</strong> Eğitim hizmeti alan kişi
-        </li>
-        <li>
-          <strong>Veli:</strong> Öğrencinin yasal temsilcisi
-        </li>
-        <li>
-          <strong>Mentor:</strong> Platform üzerinden eğitim hizmeti veren kişi
-        </li>
-        <li>
-          <strong>İçerik:</strong> Platform üzerindeki tüm eğitim materyalleri
-        </li>
-        <li>
-          <strong>Hesap:</strong> Kullanıcının platform üzerindeki profili
-        </li>
-      </ul>
-
-      <h2>3. Hizmet Kapsamı</h2>
-      <p>ÇokNet platformu aşağıdaki hizmetleri sunar:</p>
-      <ul>
-        <li>Kişiselleştirilmiş online eğitim hizmetleri</li>
-        <li>Canlı mentoring seansları</li>
-        <li>Interaktif eğitim materyalleri</li>
-        <li>İlerleme takip sistemi</li>
-        <li>Ödev ve proje desteği</li>
-        <li>Veli bilgilendirme sistemi</li>
-        <li>Sınav hazırlık programları</li>
-      </ul>
-
-      <h2>4. Kullanıcı Yükümlülükleri</h2>
-
-      <h3>4.1 Kayıt ve Hesap Güvenliği</h3>
-      <ul>
-        <li>Kayıt sırasında doğru ve güncel bilgiler vermelisiniz</li>
-        <li>Hesap şifrenizi güvenli tutmalı ve kimseyle paylaşmamalısınız</li>
-        <li>Hesabınızdan yapılan tüm işlemlerden sorumlusunuz</li>
-        <li>
-          Şüpheli bir durum fark ettiğinizde derhal bizi bilgilendirmelisiniz
-        </li>
-      </ul>
-
-      <h3>4.2 Platform Kullanımı</h3>
-      <ul>
-        <li>Platformu yalnızca yasal amaçlarla kullanmalısınız</li>
-        <li>Diğer kullanıcıların haklarına saygı göstermelisiniz</li>
-        <li>
-          Platformun güvenliğini tehlikeye atacak eylemlerden kaçınmalısınız
-        </li>
-        <li>Fikri mülkiyet haklarını ihlal etmemelisiniz</li>
-      </ul>
-
-      <h3>4.3 Yasaklanan Davranışlar</h3>
-      <p>Aşağıdaki davranışlar kesinlikle yasaktır:</p>
-      <ul>
-        <li>Sahte kimlik bilgileri kullanmak</li>
-        <li>Başka kullanıcıların hesaplarına izinsiz erişim</li>
-        <li>Zararlı yazılım yüklemek veya yaymak</li>
-        <li>Platform işleyişini bozacak faaliyetler</li>
-        <li>Uygunsuz, taciz edici veya hakaret içeren içerik paylaşmak</li>
-        <li>Ticari amaçlı spam göndermek</li>
-        <li>Telif hakkı ihlali yapacak içerik paylaşmak</li>
-      </ul>
-
-      <h2>5. Ödeme ve İptal Koşulları</h2>
-
-      <h3>5.1 Ödeme Şartları</h3>
-      <ul>
-        <li>Ücretler peşin veya taksit seçenekleriyle ödenebilir</li>
-        <li>Tüm fiyatlar KDV dahildir</li>
-        <li>Ödeme tarihleri sözleşmede belirtilir</li>
-        <li>Geç ödeme durumunda hizmet askıya alınabilir</li>
-      </ul>
-
-      <h3>5.2 İptal ve İade</h3>
-      <ul>
-        <li>İlk 14 gün içinde koşulsuz iade hakkınız vardır</li>
-        <li>İade talepleri yazılı olarak yapılmalıdır</li>
-        <li>İade işlemi 3-5 iş günü içinde gerçekleştirilir</li>
-        <li>Alınan dersler için kısmi ücret kesintisi yapılabilir</li>
-      </ul>
-
-      <h2>6. Fikri Mülkiyet Hakları</h2>
-      <p>Platform üzerindeki tüm içerikler ÇokNet'in mülkiyetindedir:</p>
-      <ul>
-        <li>Eğitim materyalleri telif hakkı ile korunmaktadır</li>
-        <li>İçerikleri kopyalayamaz, dağıtamazsınız</li>
-        <li>Ticari amaçlı kullanım yasaktır</li>
-        <li>İzinsiz paylaşım yasal takibe neden olur</li>
-      </ul>
-
-      <h2>7. Gizlilik ve Veri Koruma</h2>
+      <h2>2. TANIMLAR</h2>
       <p>
-        Kişisel verilerinizin işlenmesi Gizlilik Politikamız ile düzenlenir:
+        Aşağıdaki tanımlamalar, işbu sözleşme kapsamında atıfta bulunulacak tanımlamalar olup, açıklanan anlamlar çerçevesinde değerlendirilecektir:
       </p>
       <ul>
-        <li>Verileriniz KVKK'ya uygun işlenir</li>
-        <li>Güvenlik tedbirleri alınır</li>
-        <li>Üçüncü kişilerle paylaşım sınırlıdır</li>
-        <li>Veri saklama süreleri belirlidir</li>
+        <li><strong>İnternet sitesi:</strong> <a href="https://cok.net.tr" target="_blank" rel="noopener noreferrer">https://cok.net.tr</a> web sitesi,</li>
+        <li><strong>Kullanıcı:</strong> Web sitesinden paket satın alan ve/veya kullanan gerçek veya tüzel kişileri,</li>
+        <li><strong>Hizmet Sağlayıcı:</strong> İnternet sitesinin geliştiricisi ve yöneticisi olan "EĞİTİMDE DİJİTAL İÇERİK TEKNOLOJİLERİ ANONİM ŞİRKETİ"ni,</li>
+        <li><strong>Sözleşme:</strong> İşbu Kullanıcı Sözleşmesi'ni ifade etmektedir.</li>
       </ul>
 
-      <h2>8. Hizmet Kalitesi ve Garanti</h2>
-
-      <h3>8.1 Hizmet Standartları</h3>
-      <ul>
-        <li>Eğitim hizmetleri profesyonel standartlarda sunulur</li>
-        <li>Teknik destek 7/24 sağlanır</li>
-        <li>Platform uptime'ı %99+ hedeflenir</li>
-        <li>Mentor kalitesi sürekli denetlenir</li>
-      </ul>
-
-      <h3>8.2 Sorumluluk Sınırları</h3>
-      <ul>
-        <li>Sınav sonuçları için garanti verilmez</li>
-        <li>Teknik aksaklıklardan dolayı ders telafi edilir</li>
-        <li>Vis maior durumları sorumluluğumuzu kaldırır</li>
-        <li>Dolaylı zararlardan sorumlu değiliz</li>
-      </ul>
-
-      <h2>9. Hesap Askıya Alma ve Sonlandırma</h2>
-
-      <h3>9.1 Askıya Alma Sebepleri</h3>
-      <ul>
-        <li>Ödeme gecikmesi</li>
-        <li>Kullanım şartları ihlali</li>
-        <li>Uygunsuz davranış</li>
-        <li>Teknik güvenlik tehdidi</li>
-      </ul>
-
-      <h3>9.3 Hesap Sonlandırma</h3>
-      <ul>
-        <li>Her iki taraf 30 gün önceden bildirimle sözleşme feshedebilir</li>
-        <li>Ciddi ihlallerde derhal fesih hakkı saklıdır</li>
-        <li>Fesih durumunda ödenen ücretler iade edilmez</li>
-        <li>Kullanıcı verileri 30 gün sonra silinir</li>
-      </ul>
-
-      <h2>10. Yürürlük ve Değişiklikler</h2>
-      <p>Bu şartlar:</p>
-      <ul>
-        <li>Kabul ettiğiniz andan itibaren yürürlükte</li>
-        <li>Değişiklikler web sitesinden duyurulur</li>
-        <li>Önemli değişiklikler e-posta ile bildirilir</li>
-        <li>Devam eden kullanım değişiklikleri kabul anlamına gelir</li>
-      </ul>
-
-      <h2>11. Uygulanacak Hukuk ve Uyuşmazlık Çözümü</h2>
-      <p>Bu sözleşme Türk Hukuku'na tabidir. Uyuşmazlıklar:</p>
-      <ul>
-        <li>Öncelikle dostane yollarla çözülmeye çalışılır</li>
-        <li>Çözülemezse İstanbul Mahkemeleri ve İcra Daireleri yetkilidir</li>
-        <li>Alternatif uyuşmazlık çözümü yöntemleri tercih edilebilir</li>
-        <li>Tahkim seçeneği mevcuttur</li>
-      </ul>
-
-      <h2>12. Özel Durumlar</h2>
-
-      <h3>12.1 Reşit Olmayan Kullanıcılar</h3>
-      <ul>
-        <li>18 yaş altı kullanıcılar için veli onayı gereklidir</li>
-        <li>Veli tüm işlemlerden sorumludur</li>
-        <li>Çocuk güvenliği önceliklidir</li>
-        <li>Özel koruma tedbirleri uygulanır</li>
-      </ul>
-
-      <h3>12.2 Özel İhtiyaçlar</h3>
-      <ul>
-        <li>Engelli öğrenciler için erişilebilirlik sağlanır</li>
-        <li>Özel eğitim ihtiyaçları desteklenir</li>
-        <li>Bireysel uyarlamalar yapılır</li>
-        <li>Ek destek hizmetleri sunulur</li>
-      </ul>
-
-      <h2>13. Acil Durumlar ve Kriz Yönetimi</h2>
-      <p>Pandemi, doğal afet gibi olağanüstü durumlarda:</p>
-      <ul>
-        <li>Hizmet sürekliliği sağlanmaya çalışılır</li>
-        <li>Alternatif çözümler geliştirilir</li>
-        <li>Kullanıcılar düzenli bilgilendirilir</li>
-        <li>Esneklik gösterilir</li>
-      </ul>
-
-      <h2>14. İletişim ve Şikayetler</h2>
-      <p>Bu şartlarla ilgili sorularınız için:</p>
+      <h2>3. SÖZLEŞMENİN KONUSU</h2>
       <p>
-        <strong>E-posta:</strong> hukuk@coknet.com
-        <br />
-        <strong>Telefon:</strong> +90 212 555 0123
-        <br />
-        <strong>Şikayet:</strong> sikayet@coknet.com
-        <br />
-        <strong>Adres:</strong> Maslak Mahallesi, Teknoloji Caddesi No: 15,
-        Sarıyer/İstanbul
+        İşbu Sözleşme'nin konusu; Kullanıcı'nın, Hizmet Sağlayıcı'ya ait <a href="https://cok.net.tr" target="_blank" rel="noopener noreferrer">https://cok.net.tr</a> internet sitesinden elektronik ortamda satın aldığı, işbu Sözleşme'de ürün ve hizmet açıklamalarında bahsi geçen nitelikleri taşıyan, ürün ve hizmetlerin satışı ile ilgili olarak 6502 sayılı Tüketicinin Korunması Hakkında Kanun ve Mesafeli Sözleşmeler Yönetmeliği hükümleri gereğince tarafların hak ve yükümlülüklerinin saptanmasıdır.
+      </p>
+      <p>
+        İşbu Sözleşme kapsamında Kullanıcı'ya sunulan ürün ve hizmetler, seçilmiş olunan ürün veya hizmetin içeriğinde yer alan kayıtlı içeriklerdir. Kullanıcı, satışa konu ürün veya hizmetin temel nitelikleri, satış fiyatı, ödeme şekli gibi ürün veya hizmet ile ilgili tüm ön bilgiler konusunda bilgi sahibi olduğunu, bu ön bilgileri elektronik ortamda onayladığını ve sonrasında elektronik ortamda söz konusu ürün veya hizmeti satın aldığını işbu Sözleşme hükümlerince kabul ve beyan eder.
+      </p>
+      <p>
+        Ürün ve hizmetlerin açıklamaları ve Kullanıcı adına gönderilecek ürün veya hizmet bedelini içerir fatura işbu Sözleşme'nin ayrılmaz parçası kabul edilecektir.
       </p>
 
-      <h2>15. Son Hükümler</h2>
-      <ul>
-        <li>
-          Bu şartların herhangi bir maddesi geçersiz olsa da diğerleri
-          yürürlükte kalır
-        </li>
-        <li>
-          Şartlar arasında çelişki durumunda en güncel versiyon geçerlidir
-        </li>
-        <li>Elektronik kayıtlarımız delil niteliğindedir</li>
-        <li>
-          Bu şartlar Türkçe olarak hazırlanmış olup, tercümeler sadece bilgi
-          amaçlıdır
-        </li>
-      </ul>
+      <h2>4. KULLANIM KOŞULLARI</h2>
+      
+      <h3>4.1</h3>
+      <p>
+        Kullanıcı, işbu sözleşme kapsamında, internet sitesi üzerinden gerçekleştirdiği siparişlerde kendisine sunulan mesafeli satış sözleşmesini elektronik ortamda kabul etmiş sayılır. Kullanıcı'nın sınırlı ehliyetsiz (ergin olmayan çocuk) olması halinde; Mesafeli Satış Sözleşmesi'nin onaylanması ile Kullanıcı velisinin/vasisinin, Kullanıcı'nın işbu Sözleşme'nin tarafı haline gelmesine icazet verdiği kabul edilir.
+      </p>
+
+      <h3>4.2</h3>
+      <p>
+        Bu kabul doğrultusunda Kullanıcı, Sözleşme konusu ürün ve/veya hizmetleri ilk kullanımından veya çalıştırmasından itibaren işbu Sözleşme'de geçen hükümlerle bağlı olduğunu, bu hükümleri başka bir ihbara gerek kalmadan okumuş ve kabul etmiş sayılacaktır.
+      </p>
+
+      <h3>4.3</h3>
+      <p>
+        Kullanıcı, işbu sözleşme hükümlerini kabul etmediği takdirde, sözleşme konusu ürün ve hizmetlerden yararlanamaz, dijital içerikleri izleyemez, dersleri takip edemez ve kullanamaz. Bu koşullar dışındaki kullanım halleri Hizmet Sağlayıcı'nın telif haklarının ihlali olarak nitelendirilecektir. İşbu sözleşme hükümlerinin Kullanıcı tarafından kabul edilmemesi durumunda sözleşme konusu ürün ve hizmetleri satın almamak, bunların satın alınmış olması halinde kullanmaya devam etmemek Kullanıcı'nın sorumluluğundadır. Hizmet Sağlayıcı, sözleşmeye konu ürün ve hizmetlerin kullanımına başlandıktan sonra işbu Sözleşme hükümlerinin kabul edilmemesi sebebi ile hiçbir sorumluluk kabul etmez. Söz konusu Mesafeli Satış Sözleşmesi hükümleri, ürün ve hizmetlerin bilgisayar, tablet veya telefonda kullanılmasına bakılmaksızın bütün versiyonlarında geçerlidir.
+      </p>
+
+      <h3>4.4</h3>
+      <p>
+        Satın alınan ürün veya hizmet, internet erişimi gerektirir. Söz konusu internet bağlantısının sağlanması, kalitesi ve güvenliği Kullanıcı'nın sorumluluğundadır. Kullanıcı, ürün veya hizmetin kullanılmasıyla ilgili olarak elektronik cihazından/cihazlarının donanımsal eksikliklerinden; internet kalitesi ya da erişiminden kaynaklanan sorunlardan Hizmet Sağlayıcı'nın hiçbir koşul altında sorumlu olmayacağını kabul ve beyan eder.
+      </p>
+
+      <h3>4.5</h3>
+      <p>
+        Kullanıcı, Hizmet Sağlayıcı'nın uzman, soru birimi ve teknik destek çalışanları dahil herhangi bir çalışanına genel ahlaka ve kamu düzenine aykırı, uygunsuz, onur kırıcı yorum, paylaşım, söz ve/veya davranışlarda bulunması halinde; ürün veya hizmet kullanımının Hizmet Sağlayıcı tarafından tek taraflı olarak sonlandırılabileceğini, sistem dışına çıkarılabileceğini kabul ve beyan eder.
+      </p>
+
+      <h3>4.6</h3>
+      <p>
+        Kullanıcı, ürün veya hizmeti kullanırken gerçekleştirdiği tüm eylemlerden sorumlu olduğunu kabul ve beyan eder.
+      </p>
+
+      <h3>4.7</h3>
+      <p>
+        Satın alınan hizmetin sunumuna ilişkin yükümlülükler, hizmetin niteliğine göre Hizmet Sağlayıcı tarafından belirlenen süre içinde yerine getirilecektir.
+      </p>
+
+      <h3>4.8</h3>
+      <p>
+        Satın alınan her bir ürün veya hizmet, her halde 30 günlük yasal süreyi aşmamak kaydı ile Kullanıcı'nın kullanımına açılır. Bu süre içinde Hizmet kullanıma açılmaz ise, Kullanıcı sözleşmeyi sona erdirebilir.
+      </p>
+
+      <h3>4.9</h3>
+      <p>
+        Alıcı, satın aldığı Hizmet'in bedelini ödemez ve/veya banka kayıtlarında iptal ederse Hizmet Sağlayıcı'nın dijital içeriği Kullanıcı'nın kullanımına açma yükümlülüğü sona erer. Bu durumda Hizmet Sağlayıcı, hizmeti derhal durdurarak Alıcı'nın varsa kullandığı hizmet bedellerinin tahsili için yasal haklarını kullanabilecektir.
+      </p>
+
+      <h3>4.10</h3>
+      <p>
+        Kullanıcı, işbu sözleşmenin kurulması esnasında vermiş olduğu bilgilerin eksiksiz ve doğru olduğunu ve sözleşmeye konu olan ürün veya hizmetleri hukuka aykırı bir amaçla kullanmayacağını kabul ve taahhüt eder.
+      </p>
+
+      <h3>4.11</h3>
+      <p>
+        Sözleşme konusu ürün ve hizmetlerle ilgili tüm fikri ve sınai haklar Hizmet Sağlayıcı'ya aittir. Hizmet Sağlayıcı'ya, <a href="https://cok.net.tr" target="_blank" rel="noopener noreferrer">https://cok.net.tr</a> adresinde yer alan herhangi bir dijital içeriğin izinsiz olarak kullanılması, çoğaltılması, yayılması, satışa sunulması ve benzeri durumlarda ilgili kişi veya kişiler hakkında hukuki ve cezai yaptırımlara başvurulacaktır.
+      </p>
     </LegalPageTemplate>
   );
-}
+};
+
 export default TermsOfServicePage;

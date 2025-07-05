@@ -815,14 +815,14 @@ const ContactPage = () => {
                       color="#6B7280"
                       sx={{ fontSize: "14px" }}
                     >
-                      info@coknet.com
+                      info@cok.net.tr
                     </Typography>
                     <Typography
                       variant="body2"
                       color="#6B7280"
                       sx={{ fontSize: "14px" }}
                     >
-                      destek@coknet.com
+                      destek@cok.net.tr
                     </Typography>
                   </Box>
                 </Stack>

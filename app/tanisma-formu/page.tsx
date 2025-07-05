@@ -762,7 +762,7 @@ const TanismaFormuPage = () => {
                     </Link>{" "}
                     ve{" "}
                     <Link
-                      href="/kullanim-sartlari"
+                      href="/kullanici-sozlesmesi"
                       sx={{
                         color: "#FF9500",
                         textDecoration: "none",
@@ -771,7 +771,7 @@ const TanismaFormuPage = () => {
                         },
                       }}
                     >
-                      Kullanım Şartlarımızı
+                      Kullanıcı Sözleşmemizi
                     </Link>{" "}
                     kabul etmiş olursunuz.
                   </Typography>
